@@ -90,6 +90,15 @@ class PedidoController {
       return response.status(500).json({ mensagem: "Erro ao atualizar status" });
     }
   }
+
+  async listarHistorico(request: Request, response: Response) {
+    try {
+      const pedidos = await PedidoService.listarHistorico();
+      return response.json(pedidos);
+    } catch (error) {
+      return response.status(500).json({ mensagem: "Erro ao buscar histórico" });
+    }
+  }
 }
 
 export default new PedidoController();

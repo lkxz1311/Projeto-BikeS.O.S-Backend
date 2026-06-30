@@ -85,6 +85,18 @@ class PedidoService {
       data: { status },
     });
   }
+
+  async listarHistorico() {
+    return await prisma.pedido.findMany({
+      where: {
+        status: { in: ["Finalizado", "Rejeitado"] },
+      },
+      include: {
+        user: { select: { nome: true, telefone: true } },
+      },
+      orderBy: { createdAt: "desc" },
+    });
+  }
 }
 
 export default new PedidoService();

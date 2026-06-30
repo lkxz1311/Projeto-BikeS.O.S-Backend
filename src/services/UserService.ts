@@ -109,4 +109,16 @@ export default class UserService {
 
     return usuarioAtualizado;
   }
+
+  static async listarTecnicos() {
+    return await prisma.user.findMany({
+      where: { tipo: "tecnico" },
+      select: {
+        id: true,
+        nome: true,
+        telefone: true,
+        tipo: true,
+      },
+    });
+  }
 }

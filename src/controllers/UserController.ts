@@ -23,7 +23,7 @@ export default class UserController {
   static async login(req: Request, res: Response) {
     try {
       const { email, senha } = req.body;
-      console.log("Login request received:", { email, senha }); // Log the request body
+      console.log("Login request received:", { email, senha });
       const usuario = await UserService.login(email, senha);
       return res.status(200).json(usuario);
     } catch (error: any) {
@@ -46,6 +46,15 @@ export default class UserController {
       const { id } = req.params;
       const usuario = await UserService.atualizarUsuario(id, req.body);
       return res.status(200).json(usuario);
+    } catch (error: any) {
+      return res.status(400).json({ mensagem: error.message });
+    }
+  }
+
+  static async listarTecnicos(req: Request, res: Response) {
+    try {
+      const tecnicos = await UserService.listarTecnicos();
+      return res.status(200).json(tecnicos);
     } catch (error: any) {
       return res.status(400).json({ mensagem: error.message });
     }
