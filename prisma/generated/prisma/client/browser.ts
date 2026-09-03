@@ -27,3 +27,8 @@ export type User = Prisma.UserModel
  * 
  */
 export type Pedido = Prisma.PedidoModel
+/**
+ * Model Avaliacao
+ * 
+ */
+export type Avaliacao = Prisma.AvaliacaoModel

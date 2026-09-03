@@ -4,6 +4,7 @@ import express, { Request, Response } from "express";
 import cors from "cors";
 import pedidoRoutes from './routes/pedidoRoutes.js';
 import usuarioRoutes from './routes/usuarioRouter.js';
+import avaliacaoRoutes from './routes/avaliacaoRoutes.js'; // ← novo
 
 const app = express();
 
@@ -27,6 +28,7 @@ app.get("/teste", (request: Request, response: Response) => {
 
 app.use(pedidoRoutes);
 app.use(usuarioRoutes);
+app.use('/avaliacoes', avaliacaoRoutes); // ← novo
 
 app.listen(PORT, () => {
   console.log(`Servidor rodando em http://localhost:${PORT}`);

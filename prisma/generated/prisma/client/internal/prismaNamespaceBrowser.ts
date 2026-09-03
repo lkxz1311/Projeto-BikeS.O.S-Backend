@@ -52,7 +52,8 @@ export const AnyNull = runtime.AnyNull
 
 export const ModelName = {
   User: 'User',
-  Pedido: 'Pedido'
+  Pedido: 'Pedido',
+  Avaliacao: 'Avaliacao'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -95,12 +96,28 @@ export const PedidoScalarFieldEnum = {
   localizacao: 'localizacao',
   pagamento: 'pagamento',
   status: 'status',
-  userId: 'userId',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  userId: 'userId',
+  tecnicoId: 'tecnicoId',
+  tecnicoSolicitadoId: 'tecnicoSolicitadoId'
 } as const
 
 export type PedidoScalarFieldEnum = (typeof PedidoScalarFieldEnum)[keyof typeof PedidoScalarFieldEnum]
+
+
+export const AvaliacaoScalarFieldEnum = {
+  id: 'id',
+  nota: 'nota',
+  comentario: 'comentario',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  clienteId: 'clienteId',
+  tecnicoId: 'tecnicoId',
+  pedidoId: 'pedidoId'
+} as const
+
+export type AvaliacaoScalarFieldEnum = (typeof AvaliacaoScalarFieldEnum)[keyof typeof AvaliacaoScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -117,4 +134,12 @@ export const QueryMode = {
 } as const
 
 export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
+
+
+export const NullsOrder = {
+  first: 'first',
+  last: 'last'
+} as const
+
+export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 

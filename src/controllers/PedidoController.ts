@@ -17,9 +17,26 @@ class PedidoController {
     }
   }
 
-  async listarDisponiveis(request: Request, response: Response) {
+  async listarPorTecnico(request: Request, response: Response) {
+    const { tecnicoId } = request.params;
+
+    if (!tecnicoId) {
+      return response.status(400).json({ mensagem: "tecnicoId é obrigatório" });
+    }
+
     try {
-      const pedidos = await PedidoService.listarDisponiveis();
+      const pedidos = await PedidoService.listarPorTecnico(tecnicoId);
+      return response.json(pedidos);
+    } catch (error) {
+      return response.status(500).json({ mensagem: "Erro ao buscar pedidos do técnico" });
+    }
+  }
+
+  async listarDisponiveis(request: Request, response: Response) {
+    const { tecnicoId } = request.query;
+
+    try {
+      const pedidos = await PedidoService.listarDisponiveis(tecnicoId as string | undefined);
       return response.json(pedidos);
     } catch (error) {
       return response.status(500).json({ mensagem: "Erro ao buscar pedidos disponíveis" });
@@ -52,7 +69,7 @@ class PedidoController {
   }
 
   async criar(request: Request, response: Response) {
-    const { tipo, userId, telefone, problema, bike, localizacao, pagamento } = request.body;
+    const { tipo, userId, telefone, problema, bike, localizacao, pagamento, tecnicoSolicitadoId } = request.body;
 
     if (!tipo || !userId || !telefone || !problema || !bike || !localizacao || !pagamento) {
       return response.status(400).json({ mensagem: "Preencha todos os campos obrigatórios" });
@@ -67,6 +84,7 @@ class PedidoController {
         bike,
         localizacao,
         pagamento,
+        tecnicoSolicitadoId,
       });
 
       return response.status(201).json(pedido);
@@ -77,14 +95,14 @@ class PedidoController {
 
   async atualizarStatus(request: Request, response: Response) {
     const { id } = request.params;
-    const { status } = request.body;
+    const { status, tecnicoId } = request.body;
 
     if (!status) {
       return response.status(400).json({ mensagem: "Status é obrigatório" });
     }
 
     try {
-      const pedido = await PedidoService.atualizarStatus(id, status);
+      const pedido = await PedidoService.atualizarStatus(id, status, tecnicoId);
       return response.json(pedido);
     } catch (error) {
       return response.status(500).json({ mensagem: "Erro ao atualizar status" });
@@ -97,6 +115,28 @@ class PedidoController {
       return response.json(pedidos);
     } catch (error) {
       return response.status(500).json({ mensagem: "Erro ao buscar histórico" });
+    }
+  }
+
+  async avaliar(request: Request, response: Response) {
+    const { pedidoId, clienteId, tecnicoId, nota, comentario } = request.body;
+
+    if (!pedidoId || !clienteId || nota === undefined) {
+      return response.status(400).json({ mensagem: "pedidoId, clienteId e nota são obrigatórios" });
+    }
+
+    try {
+      const avaliacao = await PedidoService.criarAvaliacao({
+        pedidoId,
+        clienteId,
+        tecnicoId,
+        nota: Number(nota),
+        comentario,
+      });
+
+      return response.status(201).json(avaliacao);
+    } catch (error) {
+      return response.status(500).json({ mensagem: "Erro ao salvar avaliação" });
     }
   }
 }

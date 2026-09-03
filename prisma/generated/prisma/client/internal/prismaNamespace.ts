@@ -385,7 +385,8 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 
 export const ModelName = {
   User: 'User',
-  Pedido: 'Pedido'
+  Pedido: 'Pedido',
+  Avaliacao: 'Avaliacao'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -401,7 +402,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "pedido"
+    modelProps: "user" | "pedido" | "avaliacao"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -553,6 +554,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    Avaliacao: {
+      payload: Prisma.$AvaliacaoPayload<ExtArgs>
+      fields: Prisma.AvaliacaoFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.AvaliacaoFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AvaliacaoPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.AvaliacaoFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AvaliacaoPayload>
+        }
+        findFirst: {
+          args: Prisma.AvaliacaoFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AvaliacaoPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.AvaliacaoFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AvaliacaoPayload>
+        }
+        findMany: {
+          args: Prisma.AvaliacaoFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AvaliacaoPayload>[]
+        }
+        create: {
+          args: Prisma.AvaliacaoCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AvaliacaoPayload>
+        }
+        createMany: {
+          args: Prisma.AvaliacaoCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.AvaliacaoCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AvaliacaoPayload>[]
+        }
+        delete: {
+          args: Prisma.AvaliacaoDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AvaliacaoPayload>
+        }
+        update: {
+          args: Prisma.AvaliacaoUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AvaliacaoPayload>
+        }
+        deleteMany: {
+          args: Prisma.AvaliacaoDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.AvaliacaoUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.AvaliacaoUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AvaliacaoPayload>[]
+        }
+        upsert: {
+          args: Prisma.AvaliacaoUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AvaliacaoPayload>
+        }
+        aggregate: {
+          args: Prisma.AvaliacaoAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateAvaliacao>
+        }
+        groupBy: {
+          args: Prisma.AvaliacaoGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AvaliacaoGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.AvaliacaoCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AvaliacaoCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -616,12 +691,28 @@ export const PedidoScalarFieldEnum = {
   localizacao: 'localizacao',
   pagamento: 'pagamento',
   status: 'status',
-  userId: 'userId',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  userId: 'userId',
+  tecnicoId: 'tecnicoId',
+  tecnicoSolicitadoId: 'tecnicoSolicitadoId'
 } as const
 
 export type PedidoScalarFieldEnum = (typeof PedidoScalarFieldEnum)[keyof typeof PedidoScalarFieldEnum]
+
+
+export const AvaliacaoScalarFieldEnum = {
+  id: 'id',
+  nota: 'nota',
+  comentario: 'comentario',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  clienteId: 'clienteId',
+  tecnicoId: 'tecnicoId',
+  pedidoId: 'pedidoId'
+} as const
+
+export type AvaliacaoScalarFieldEnum = (typeof AvaliacaoScalarFieldEnum)[keyof typeof AvaliacaoScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -638,6 +729,14 @@ export const QueryMode = {
 } as const
 
 export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
+
+
+export const NullsOrder = {
+  first: 'first',
+  last: 'last'
+} as const
+
+export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 
 
 
@@ -685,6 +784,20 @@ export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'In
  * Reference to a field of type 'Int[]'
  */
 export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+/**
+ * Reference to a field of type 'Float'
+ */
+export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
+    
+
+
+/**
+ * Reference to a field of type 'Float[]'
+ */
+export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
     
 
 /**
@@ -799,6 +912,7 @@ export type PrismaClientOptions = ({
 export type GlobalOmitConfig = {
   user?: Prisma.UserOmit
   pedido?: Prisma.PedidoOmit
+  avaliacao?: Prisma.AvaliacaoOmit
 }
 
 /* Types for Logging */

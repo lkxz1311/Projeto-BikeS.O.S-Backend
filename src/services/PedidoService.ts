@@ -14,16 +14,41 @@ class PedidoService {
   async listarPorUsuario(userId: string) {
     return await prisma.pedido.findMany({
       where: { userId },
+      include: {
+        avaliacao: true,
+      },
       orderBy: { createdAt: "desc" },
     });
   }
 
-  async listarDisponiveis() {
+  async listarPorTecnico(tecnicoId: string) {
+    return await prisma.pedido.findMany({
+      where: {
+        tecnicoId,
+        status: {
+          in: ["Técnico aceitou", "Aceito pelo técnico", "Em atendimento"],
+        },
+      },
+      include: {
+        user: { select: { nome: true, telefone: true } },
+      },
+      orderBy: { createdAt: "desc" },
+    });
+  }
+
+  async listarDisponiveis(tecnicoId?: string) {
+    const orConditions: any[] = [{ tecnicoSolicitadoId: null }];
+
+    if (tecnicoId) {
+      orConditions.push({ tecnicoSolicitadoId: tecnicoId });
+    }
+
     return await prisma.pedido.findMany({
       where: {
         status: {
           in: ["Aguardando técnico aceitar", "SOS enviado", "Agendamento enviado"],
         },
+        OR: orConditions,
       },
       include: {
         user: { select: { nome: true, telefone: true } },
@@ -36,7 +61,7 @@ class PedidoService {
     return await prisma.pedido.findMany({
       where: {
         status: {
-          in: ["Técnico aceitou", "Técnico a caminho", "Em atendimento"],
+          in: ["Técnico aceitou", "Aceito pelo técnico", "Em atendimento"],
         },
       },
       include: {
@@ -51,6 +76,7 @@ class PedidoService {
       where: { id },
       include: {
         user: { select: { nome: true, telefone: true } },
+        avaliacao: true,
       },
     });
   }
@@ -63,6 +89,7 @@ class PedidoService {
     bike: string;
     localizacao: string;
     pagamento: string;
+    tecnicoSolicitadoId?: string | null;
   }) {
     return await prisma.pedido.create({
       data: {
@@ -75,27 +102,59 @@ class PedidoService {
         pagamento: dados.pagamento,
         status: definirStatusInicial(dados.tipo),
         userId: dados.userId,
+        tecnicoSolicitadoId: dados.tecnicoSolicitadoId ?? null,
       },
     });
   }
 
-  async atualizarStatus(id: string, status: string) {
+  async atualizarStatus(id: string, status: string, tecnicoId?: string) {
+    const dataAtualizacao: any = { status };
+    if (tecnicoId) {
+      dataAtualizacao.tecnicoId = tecnicoId;
+    }
+
     return await prisma.pedido.update({
       where: { id },
-      data: { status },
+      data: dataAtualizacao,
     });
   }
 
   async listarHistorico() {
     return await prisma.pedido.findMany({
       where: {
-        status: { in: ["Finalizado", "Rejeitado"] },
+        status: "Finalizado",
       },
       include: {
         user: { select: { nome: true, telefone: true } },
+        avaliacao: true,
       },
       orderBy: { createdAt: "desc" },
     });
+  }
+
+  async criarAvaliacao(dados: {
+    pedidoId: string;
+    clienteId: string;
+    tecnicoId?: string;
+    nota: number;
+    comentario?: string;
+  }) {
+    const avaliacao = await prisma.avaliacao.create({
+      data: {
+        pedidoId: dados.pedidoId,
+        clienteId: dados.clienteId,
+        tecnicoId: dados.tecnicoId,
+        nota: dados.nota,
+        comentario: dados.comentario,
+      },
+    });
+
+    await prisma.pedido.update({
+      where: { id: dados.pedidoId },
+      data: { status: "Finalizado" },
+    });
+
+    return avaliacao;
   }
 }
 

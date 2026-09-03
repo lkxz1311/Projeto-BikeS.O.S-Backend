@@ -34,9 +34,11 @@ export type PedidoMinAggregateOutputType = {
   localizacao: string | null
   pagamento: string | null
   status: string | null
-  userId: string | null
   createdAt: Date | null
   updatedAt: Date | null
+  userId: string | null
+  tecnicoId: string | null
+  tecnicoSolicitadoId: string | null
 }
 
 export type PedidoMaxAggregateOutputType = {
@@ -49,9 +51,11 @@ export type PedidoMaxAggregateOutputType = {
   localizacao: string | null
   pagamento: string | null
   status: string | null
-  userId: string | null
   createdAt: Date | null
   updatedAt: Date | null
+  userId: string | null
+  tecnicoId: string | null
+  tecnicoSolicitadoId: string | null
 }
 
 export type PedidoCountAggregateOutputType = {
@@ -64,9 +68,11 @@ export type PedidoCountAggregateOutputType = {
   localizacao: number
   pagamento: number
   status: number
-  userId: number
   createdAt: number
   updatedAt: number
+  userId: number
+  tecnicoId: number
+  tecnicoSolicitadoId: number
   _all: number
 }
 
@@ -81,9 +87,11 @@ export type PedidoMinAggregateInputType = {
   localizacao?: true
   pagamento?: true
   status?: true
-  userId?: true
   createdAt?: true
   updatedAt?: true
+  userId?: true
+  tecnicoId?: true
+  tecnicoSolicitadoId?: true
 }
 
 export type PedidoMaxAggregateInputType = {
@@ -96,9 +104,11 @@ export type PedidoMaxAggregateInputType = {
   localizacao?: true
   pagamento?: true
   status?: true
-  userId?: true
   createdAt?: true
   updatedAt?: true
+  userId?: true
+  tecnicoId?: true
+  tecnicoSolicitadoId?: true
 }
 
 export type PedidoCountAggregateInputType = {
@@ -111,9 +121,11 @@ export type PedidoCountAggregateInputType = {
   localizacao?: true
   pagamento?: true
   status?: true
-  userId?: true
   createdAt?: true
   updatedAt?: true
+  userId?: true
+  tecnicoId?: true
+  tecnicoSolicitadoId?: true
   _all?: true
 }
 
@@ -199,9 +211,11 @@ export type PedidoGroupByOutputType = {
   localizacao: string
   pagamento: string
   status: string
-  userId: string
   createdAt: Date
   updatedAt: Date
+  userId: string
+  tecnicoId: string | null
+  tecnicoSolicitadoId: string | null
   _count: PedidoCountAggregateOutputType | null
   _min: PedidoMinAggregateOutputType | null
   _max: PedidoMaxAggregateOutputType | null
@@ -235,10 +249,15 @@ export type PedidoWhereInput = {
   localizacao?: Prisma.StringFilter<"Pedido"> | string
   pagamento?: Prisma.StringFilter<"Pedido"> | string
   status?: Prisma.StringFilter<"Pedido"> | string
-  userId?: Prisma.StringFilter<"Pedido"> | string
   createdAt?: Prisma.DateTimeFilter<"Pedido"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Pedido"> | Date | string
+  userId?: Prisma.StringFilter<"Pedido"> | string
+  tecnicoId?: Prisma.StringNullableFilter<"Pedido"> | string | null
+  tecnicoSolicitadoId?: Prisma.StringNullableFilter<"Pedido"> | string | null
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  tecnico?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
+  tecnicoSolicitado?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
+  avaliacao?: Prisma.XOR<Prisma.AvaliacaoNullableScalarRelationFilter, Prisma.AvaliacaoWhereInput> | null
 }
 
 export type PedidoOrderByWithRelationInput = {
@@ -251,10 +270,15 @@ export type PedidoOrderByWithRelationInput = {
   localizacao?: Prisma.SortOrder
   pagamento?: Prisma.SortOrder
   status?: Prisma.SortOrder
-  userId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  userId?: Prisma.SortOrder
+  tecnicoId?: Prisma.SortOrderInput | Prisma.SortOrder
+  tecnicoSolicitadoId?: Prisma.SortOrderInput | Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
+  tecnico?: Prisma.UserOrderByWithRelationInput
+  tecnicoSolicitado?: Prisma.UserOrderByWithRelationInput
+  avaliacao?: Prisma.AvaliacaoOrderByWithRelationInput
 }
 
 export type PedidoWhereUniqueInput = Prisma.AtLeast<{
@@ -270,10 +294,15 @@ export type PedidoWhereUniqueInput = Prisma.AtLeast<{
   localizacao?: Prisma.StringFilter<"Pedido"> | string
   pagamento?: Prisma.StringFilter<"Pedido"> | string
   status?: Prisma.StringFilter<"Pedido"> | string
-  userId?: Prisma.StringFilter<"Pedido"> | string
   createdAt?: Prisma.DateTimeFilter<"Pedido"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Pedido"> | Date | string
+  userId?: Prisma.StringFilter<"Pedido"> | string
+  tecnicoId?: Prisma.StringNullableFilter<"Pedido"> | string | null
+  tecnicoSolicitadoId?: Prisma.StringNullableFilter<"Pedido"> | string | null
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  tecnico?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
+  tecnicoSolicitado?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
+  avaliacao?: Prisma.XOR<Prisma.AvaliacaoNullableScalarRelationFilter, Prisma.AvaliacaoWhereInput> | null
 }, "id">
 
 export type PedidoOrderByWithAggregationInput = {
@@ -286,9 +315,11 @@ export type PedidoOrderByWithAggregationInput = {
   localizacao?: Prisma.SortOrder
   pagamento?: Prisma.SortOrder
   status?: Prisma.SortOrder
-  userId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  userId?: Prisma.SortOrder
+  tecnicoId?: Prisma.SortOrderInput | Prisma.SortOrder
+  tecnicoSolicitadoId?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.PedidoCountOrderByAggregateInput
   _max?: Prisma.PedidoMaxOrderByAggregateInput
   _min?: Prisma.PedidoMinOrderByAggregateInput
@@ -307,9 +338,11 @@ export type PedidoScalarWhereWithAggregatesInput = {
   localizacao?: Prisma.StringWithAggregatesFilter<"Pedido"> | string
   pagamento?: Prisma.StringWithAggregatesFilter<"Pedido"> | string
   status?: Prisma.StringWithAggregatesFilter<"Pedido"> | string
-  userId?: Prisma.StringWithAggregatesFilter<"Pedido"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Pedido"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Pedido"> | Date | string
+  userId?: Prisma.StringWithAggregatesFilter<"Pedido"> | string
+  tecnicoId?: Prisma.StringNullableWithAggregatesFilter<"Pedido"> | string | null
+  tecnicoSolicitadoId?: Prisma.StringNullableWithAggregatesFilter<"Pedido"> | string | null
 }
 
 export type PedidoCreateInput = {
@@ -324,7 +357,10 @@ export type PedidoCreateInput = {
   status?: string
   createdAt?: Date | string
   updatedAt?: Date | string
-  user: Prisma.UserCreateNestedOneWithoutPedidosInput
+  user: Prisma.UserCreateNestedOneWithoutPedidosCriadosInput
+  tecnico?: Prisma.UserCreateNestedOneWithoutPedidosAtendidosInput
+  tecnicoSolicitado?: Prisma.UserCreateNestedOneWithoutPedidosDirecionadosRecebidosInput
+  avaliacao?: Prisma.AvaliacaoCreateNestedOneWithoutPedidoInput
 }
 
 export type PedidoUncheckedCreateInput = {
@@ -337,9 +373,12 @@ export type PedidoUncheckedCreateInput = {
   localizacao: string
   pagamento: string
   status?: string
-  userId: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  userId: string
+  tecnicoId?: string | null
+  tecnicoSolicitadoId?: string | null
+  avaliacao?: Prisma.AvaliacaoUncheckedCreateNestedOneWithoutPedidoInput
 }
 
 export type PedidoUpdateInput = {
@@ -354,7 +393,10 @@ export type PedidoUpdateInput = {
   status?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  user?: Prisma.UserUpdateOneRequiredWithoutPedidosNestedInput
+  user?: Prisma.UserUpdateOneRequiredWithoutPedidosCriadosNestedInput
+  tecnico?: Prisma.UserUpdateOneWithoutPedidosAtendidosNestedInput
+  tecnicoSolicitado?: Prisma.UserUpdateOneWithoutPedidosDirecionadosRecebidosNestedInput
+  avaliacao?: Prisma.AvaliacaoUpdateOneWithoutPedidoNestedInput
 }
 
 export type PedidoUncheckedUpdateInput = {
@@ -367,9 +409,12 @@ export type PedidoUncheckedUpdateInput = {
   localizacao?: Prisma.StringFieldUpdateOperationsInput | string
   pagamento?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.StringFieldUpdateOperationsInput | string
-  userId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  tecnicoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tecnicoSolicitadoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avaliacao?: Prisma.AvaliacaoUncheckedUpdateOneWithoutPedidoNestedInput
 }
 
 export type PedidoCreateManyInput = {
@@ -382,9 +427,11 @@ export type PedidoCreateManyInput = {
   localizacao: string
   pagamento: string
   status?: string
-  userId: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  userId: string
+  tecnicoId?: string | null
+  tecnicoSolicitadoId?: string | null
 }
 
 export type PedidoUpdateManyMutationInput = {
@@ -411,9 +458,11 @@ export type PedidoUncheckedUpdateManyInput = {
   localizacao?: Prisma.StringFieldUpdateOperationsInput | string
   pagamento?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.StringFieldUpdateOperationsInput | string
-  userId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  tecnicoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tecnicoSolicitadoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type PedidoListRelationFilter = {
@@ -436,9 +485,11 @@ export type PedidoCountOrderByAggregateInput = {
   localizacao?: Prisma.SortOrder
   pagamento?: Prisma.SortOrder
   status?: Prisma.SortOrder
-  userId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  userId?: Prisma.SortOrder
+  tecnicoId?: Prisma.SortOrder
+  tecnicoSolicitadoId?: Prisma.SortOrder
 }
 
 export type PedidoMaxOrderByAggregateInput = {
@@ -451,9 +502,11 @@ export type PedidoMaxOrderByAggregateInput = {
   localizacao?: Prisma.SortOrder
   pagamento?: Prisma.SortOrder
   status?: Prisma.SortOrder
-  userId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  userId?: Prisma.SortOrder
+  tecnicoId?: Prisma.SortOrder
+  tecnicoSolicitadoId?: Prisma.SortOrder
 }
 
 export type PedidoMinOrderByAggregateInput = {
@@ -466,9 +519,16 @@ export type PedidoMinOrderByAggregateInput = {
   localizacao?: Prisma.SortOrder
   pagamento?: Prisma.SortOrder
   status?: Prisma.SortOrder
-  userId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  userId?: Prisma.SortOrder
+  tecnicoId?: Prisma.SortOrder
+  tecnicoSolicitadoId?: Prisma.SortOrder
+}
+
+export type PedidoScalarRelationFilter = {
+  is?: Prisma.PedidoWhereInput
+  isNot?: Prisma.PedidoWhereInput
 }
 
 export type PedidoCreateNestedManyWithoutUserInput = {
@@ -478,10 +538,38 @@ export type PedidoCreateNestedManyWithoutUserInput = {
   connect?: Prisma.PedidoWhereUniqueInput | Prisma.PedidoWhereUniqueInput[]
 }
 
+export type PedidoCreateNestedManyWithoutTecnicoInput = {
+  create?: Prisma.XOR<Prisma.PedidoCreateWithoutTecnicoInput, Prisma.PedidoUncheckedCreateWithoutTecnicoInput> | Prisma.PedidoCreateWithoutTecnicoInput[] | Prisma.PedidoUncheckedCreateWithoutTecnicoInput[]
+  connectOrCreate?: Prisma.PedidoCreateOrConnectWithoutTecnicoInput | Prisma.PedidoCreateOrConnectWithoutTecnicoInput[]
+  createMany?: Prisma.PedidoCreateManyTecnicoInputEnvelope
+  connect?: Prisma.PedidoWhereUniqueInput | Prisma.PedidoWhereUniqueInput[]
+}
+
+export type PedidoCreateNestedManyWithoutTecnicoSolicitadoInput = {
+  create?: Prisma.XOR<Prisma.PedidoCreateWithoutTecnicoSolicitadoInput, Prisma.PedidoUncheckedCreateWithoutTecnicoSolicitadoInput> | Prisma.PedidoCreateWithoutTecnicoSolicitadoInput[] | Prisma.PedidoUncheckedCreateWithoutTecnicoSolicitadoInput[]
+  connectOrCreate?: Prisma.PedidoCreateOrConnectWithoutTecnicoSolicitadoInput | Prisma.PedidoCreateOrConnectWithoutTecnicoSolicitadoInput[]
+  createMany?: Prisma.PedidoCreateManyTecnicoSolicitadoInputEnvelope
+  connect?: Prisma.PedidoWhereUniqueInput | Prisma.PedidoWhereUniqueInput[]
+}
+
 export type PedidoUncheckedCreateNestedManyWithoutUserInput = {
   create?: Prisma.XOR<Prisma.PedidoCreateWithoutUserInput, Prisma.PedidoUncheckedCreateWithoutUserInput> | Prisma.PedidoCreateWithoutUserInput[] | Prisma.PedidoUncheckedCreateWithoutUserInput[]
   connectOrCreate?: Prisma.PedidoCreateOrConnectWithoutUserInput | Prisma.PedidoCreateOrConnectWithoutUserInput[]
   createMany?: Prisma.PedidoCreateManyUserInputEnvelope
+  connect?: Prisma.PedidoWhereUniqueInput | Prisma.PedidoWhereUniqueInput[]
+}
+
+export type PedidoUncheckedCreateNestedManyWithoutTecnicoInput = {
+  create?: Prisma.XOR<Prisma.PedidoCreateWithoutTecnicoInput, Prisma.PedidoUncheckedCreateWithoutTecnicoInput> | Prisma.PedidoCreateWithoutTecnicoInput[] | Prisma.PedidoUncheckedCreateWithoutTecnicoInput[]
+  connectOrCreate?: Prisma.PedidoCreateOrConnectWithoutTecnicoInput | Prisma.PedidoCreateOrConnectWithoutTecnicoInput[]
+  createMany?: Prisma.PedidoCreateManyTecnicoInputEnvelope
+  connect?: Prisma.PedidoWhereUniqueInput | Prisma.PedidoWhereUniqueInput[]
+}
+
+export type PedidoUncheckedCreateNestedManyWithoutTecnicoSolicitadoInput = {
+  create?: Prisma.XOR<Prisma.PedidoCreateWithoutTecnicoSolicitadoInput, Prisma.PedidoUncheckedCreateWithoutTecnicoSolicitadoInput> | Prisma.PedidoCreateWithoutTecnicoSolicitadoInput[] | Prisma.PedidoUncheckedCreateWithoutTecnicoSolicitadoInput[]
+  connectOrCreate?: Prisma.PedidoCreateOrConnectWithoutTecnicoSolicitadoInput | Prisma.PedidoCreateOrConnectWithoutTecnicoSolicitadoInput[]
+  createMany?: Prisma.PedidoCreateManyTecnicoSolicitadoInputEnvelope
   connect?: Prisma.PedidoWhereUniqueInput | Prisma.PedidoWhereUniqueInput[]
 }
 
@@ -499,6 +587,34 @@ export type PedidoUpdateManyWithoutUserNestedInput = {
   deleteMany?: Prisma.PedidoScalarWhereInput | Prisma.PedidoScalarWhereInput[]
 }
 
+export type PedidoUpdateManyWithoutTecnicoNestedInput = {
+  create?: Prisma.XOR<Prisma.PedidoCreateWithoutTecnicoInput, Prisma.PedidoUncheckedCreateWithoutTecnicoInput> | Prisma.PedidoCreateWithoutTecnicoInput[] | Prisma.PedidoUncheckedCreateWithoutTecnicoInput[]
+  connectOrCreate?: Prisma.PedidoCreateOrConnectWithoutTecnicoInput | Prisma.PedidoCreateOrConnectWithoutTecnicoInput[]
+  upsert?: Prisma.PedidoUpsertWithWhereUniqueWithoutTecnicoInput | Prisma.PedidoUpsertWithWhereUniqueWithoutTecnicoInput[]
+  createMany?: Prisma.PedidoCreateManyTecnicoInputEnvelope
+  set?: Prisma.PedidoWhereUniqueInput | Prisma.PedidoWhereUniqueInput[]
+  disconnect?: Prisma.PedidoWhereUniqueInput | Prisma.PedidoWhereUniqueInput[]
+  delete?: Prisma.PedidoWhereUniqueInput | Prisma.PedidoWhereUniqueInput[]
+  connect?: Prisma.PedidoWhereUniqueInput | Prisma.PedidoWhereUniqueInput[]
+  update?: Prisma.PedidoUpdateWithWhereUniqueWithoutTecnicoInput | Prisma.PedidoUpdateWithWhereUniqueWithoutTecnicoInput[]
+  updateMany?: Prisma.PedidoUpdateManyWithWhereWithoutTecnicoInput | Prisma.PedidoUpdateManyWithWhereWithoutTecnicoInput[]
+  deleteMany?: Prisma.PedidoScalarWhereInput | Prisma.PedidoScalarWhereInput[]
+}
+
+export type PedidoUpdateManyWithoutTecnicoSolicitadoNestedInput = {
+  create?: Prisma.XOR<Prisma.PedidoCreateWithoutTecnicoSolicitadoInput, Prisma.PedidoUncheckedCreateWithoutTecnicoSolicitadoInput> | Prisma.PedidoCreateWithoutTecnicoSolicitadoInput[] | Prisma.PedidoUncheckedCreateWithoutTecnicoSolicitadoInput[]
+  connectOrCreate?: Prisma.PedidoCreateOrConnectWithoutTecnicoSolicitadoInput | Prisma.PedidoCreateOrConnectWithoutTecnicoSolicitadoInput[]
+  upsert?: Prisma.PedidoUpsertWithWhereUniqueWithoutTecnicoSolicitadoInput | Prisma.PedidoUpsertWithWhereUniqueWithoutTecnicoSolicitadoInput[]
+  createMany?: Prisma.PedidoCreateManyTecnicoSolicitadoInputEnvelope
+  set?: Prisma.PedidoWhereUniqueInput | Prisma.PedidoWhereUniqueInput[]
+  disconnect?: Prisma.PedidoWhereUniqueInput | Prisma.PedidoWhereUniqueInput[]
+  delete?: Prisma.PedidoWhereUniqueInput | Prisma.PedidoWhereUniqueInput[]
+  connect?: Prisma.PedidoWhereUniqueInput | Prisma.PedidoWhereUniqueInput[]
+  update?: Prisma.PedidoUpdateWithWhereUniqueWithoutTecnicoSolicitadoInput | Prisma.PedidoUpdateWithWhereUniqueWithoutTecnicoSolicitadoInput[]
+  updateMany?: Prisma.PedidoUpdateManyWithWhereWithoutTecnicoSolicitadoInput | Prisma.PedidoUpdateManyWithWhereWithoutTecnicoSolicitadoInput[]
+  deleteMany?: Prisma.PedidoScalarWhereInput | Prisma.PedidoScalarWhereInput[]
+}
+
 export type PedidoUncheckedUpdateManyWithoutUserNestedInput = {
   create?: Prisma.XOR<Prisma.PedidoCreateWithoutUserInput, Prisma.PedidoUncheckedCreateWithoutUserInput> | Prisma.PedidoCreateWithoutUserInput[] | Prisma.PedidoUncheckedCreateWithoutUserInput[]
   connectOrCreate?: Prisma.PedidoCreateOrConnectWithoutUserInput | Prisma.PedidoCreateOrConnectWithoutUserInput[]
@@ -513,6 +629,52 @@ export type PedidoUncheckedUpdateManyWithoutUserNestedInput = {
   deleteMany?: Prisma.PedidoScalarWhereInput | Prisma.PedidoScalarWhereInput[]
 }
 
+export type PedidoUncheckedUpdateManyWithoutTecnicoNestedInput = {
+  create?: Prisma.XOR<Prisma.PedidoCreateWithoutTecnicoInput, Prisma.PedidoUncheckedCreateWithoutTecnicoInput> | Prisma.PedidoCreateWithoutTecnicoInput[] | Prisma.PedidoUncheckedCreateWithoutTecnicoInput[]
+  connectOrCreate?: Prisma.PedidoCreateOrConnectWithoutTecnicoInput | Prisma.PedidoCreateOrConnectWithoutTecnicoInput[]
+  upsert?: Prisma.PedidoUpsertWithWhereUniqueWithoutTecnicoInput | Prisma.PedidoUpsertWithWhereUniqueWithoutTecnicoInput[]
+  createMany?: Prisma.PedidoCreateManyTecnicoInputEnvelope
+  set?: Prisma.PedidoWhereUniqueInput | Prisma.PedidoWhereUniqueInput[]
+  disconnect?: Prisma.PedidoWhereUniqueInput | Prisma.PedidoWhereUniqueInput[]
+  delete?: Prisma.PedidoWhereUniqueInput | Prisma.PedidoWhereUniqueInput[]
+  connect?: Prisma.PedidoWhereUniqueInput | Prisma.PedidoWhereUniqueInput[]
+  update?: Prisma.PedidoUpdateWithWhereUniqueWithoutTecnicoInput | Prisma.PedidoUpdateWithWhereUniqueWithoutTecnicoInput[]
+  updateMany?: Prisma.PedidoUpdateManyWithWhereWithoutTecnicoInput | Prisma.PedidoUpdateManyWithWhereWithoutTecnicoInput[]
+  deleteMany?: Prisma.PedidoScalarWhereInput | Prisma.PedidoScalarWhereInput[]
+}
+
+export type PedidoUncheckedUpdateManyWithoutTecnicoSolicitadoNestedInput = {
+  create?: Prisma.XOR<Prisma.PedidoCreateWithoutTecnicoSolicitadoInput, Prisma.PedidoUncheckedCreateWithoutTecnicoSolicitadoInput> | Prisma.PedidoCreateWithoutTecnicoSolicitadoInput[] | Prisma.PedidoUncheckedCreateWithoutTecnicoSolicitadoInput[]
+  connectOrCreate?: Prisma.PedidoCreateOrConnectWithoutTecnicoSolicitadoInput | Prisma.PedidoCreateOrConnectWithoutTecnicoSolicitadoInput[]
+  upsert?: Prisma.PedidoUpsertWithWhereUniqueWithoutTecnicoSolicitadoInput | Prisma.PedidoUpsertWithWhereUniqueWithoutTecnicoSolicitadoInput[]
+  createMany?: Prisma.PedidoCreateManyTecnicoSolicitadoInputEnvelope
+  set?: Prisma.PedidoWhereUniqueInput | Prisma.PedidoWhereUniqueInput[]
+  disconnect?: Prisma.PedidoWhereUniqueInput | Prisma.PedidoWhereUniqueInput[]
+  delete?: Prisma.PedidoWhereUniqueInput | Prisma.PedidoWhereUniqueInput[]
+  connect?: Prisma.PedidoWhereUniqueInput | Prisma.PedidoWhereUniqueInput[]
+  update?: Prisma.PedidoUpdateWithWhereUniqueWithoutTecnicoSolicitadoInput | Prisma.PedidoUpdateWithWhereUniqueWithoutTecnicoSolicitadoInput[]
+  updateMany?: Prisma.PedidoUpdateManyWithWhereWithoutTecnicoSolicitadoInput | Prisma.PedidoUpdateManyWithWhereWithoutTecnicoSolicitadoInput[]
+  deleteMany?: Prisma.PedidoScalarWhereInput | Prisma.PedidoScalarWhereInput[]
+}
+
+export type NullableStringFieldUpdateOperationsInput = {
+  set?: string | null
+}
+
+export type PedidoCreateNestedOneWithoutAvaliacaoInput = {
+  create?: Prisma.XOR<Prisma.PedidoCreateWithoutAvaliacaoInput, Prisma.PedidoUncheckedCreateWithoutAvaliacaoInput>
+  connectOrCreate?: Prisma.PedidoCreateOrConnectWithoutAvaliacaoInput
+  connect?: Prisma.PedidoWhereUniqueInput
+}
+
+export type PedidoUpdateOneRequiredWithoutAvaliacaoNestedInput = {
+  create?: Prisma.XOR<Prisma.PedidoCreateWithoutAvaliacaoInput, Prisma.PedidoUncheckedCreateWithoutAvaliacaoInput>
+  connectOrCreate?: Prisma.PedidoCreateOrConnectWithoutAvaliacaoInput
+  upsert?: Prisma.PedidoUpsertWithoutAvaliacaoInput
+  connect?: Prisma.PedidoWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.PedidoUpdateToOneWithWhereWithoutAvaliacaoInput, Prisma.PedidoUpdateWithoutAvaliacaoInput>, Prisma.PedidoUncheckedUpdateWithoutAvaliacaoInput>
+}
+
 export type PedidoCreateWithoutUserInput = {
   id?: string
   codigo: string
@@ -525,6 +687,9 @@ export type PedidoCreateWithoutUserInput = {
   status?: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  tecnico?: Prisma.UserCreateNestedOneWithoutPedidosAtendidosInput
+  tecnicoSolicitado?: Prisma.UserCreateNestedOneWithoutPedidosDirecionadosRecebidosInput
+  avaliacao?: Prisma.AvaliacaoCreateNestedOneWithoutPedidoInput
 }
 
 export type PedidoUncheckedCreateWithoutUserInput = {
@@ -539,6 +704,9 @@ export type PedidoUncheckedCreateWithoutUserInput = {
   status?: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  tecnicoId?: string | null
+  tecnicoSolicitadoId?: string | null
+  avaliacao?: Prisma.AvaliacaoUncheckedCreateNestedOneWithoutPedidoInput
 }
 
 export type PedidoCreateOrConnectWithoutUserInput = {
@@ -548,6 +716,94 @@ export type PedidoCreateOrConnectWithoutUserInput = {
 
 export type PedidoCreateManyUserInputEnvelope = {
   data: Prisma.PedidoCreateManyUserInput | Prisma.PedidoCreateManyUserInput[]
+  skipDuplicates?: boolean
+}
+
+export type PedidoCreateWithoutTecnicoInput = {
+  id?: string
+  codigo: string
+  tipo: string
+  telefone: string
+  problema: string
+  bike: string
+  localizacao: string
+  pagamento: string
+  status?: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  user: Prisma.UserCreateNestedOneWithoutPedidosCriadosInput
+  tecnicoSolicitado?: Prisma.UserCreateNestedOneWithoutPedidosDirecionadosRecebidosInput
+  avaliacao?: Prisma.AvaliacaoCreateNestedOneWithoutPedidoInput
+}
+
+export type PedidoUncheckedCreateWithoutTecnicoInput = {
+  id?: string
+  codigo: string
+  tipo: string
+  telefone: string
+  problema: string
+  bike: string
+  localizacao: string
+  pagamento: string
+  status?: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  userId: string
+  tecnicoSolicitadoId?: string | null
+  avaliacao?: Prisma.AvaliacaoUncheckedCreateNestedOneWithoutPedidoInput
+}
+
+export type PedidoCreateOrConnectWithoutTecnicoInput = {
+  where: Prisma.PedidoWhereUniqueInput
+  create: Prisma.XOR<Prisma.PedidoCreateWithoutTecnicoInput, Prisma.PedidoUncheckedCreateWithoutTecnicoInput>
+}
+
+export type PedidoCreateManyTecnicoInputEnvelope = {
+  data: Prisma.PedidoCreateManyTecnicoInput | Prisma.PedidoCreateManyTecnicoInput[]
+  skipDuplicates?: boolean
+}
+
+export type PedidoCreateWithoutTecnicoSolicitadoInput = {
+  id?: string
+  codigo: string
+  tipo: string
+  telefone: string
+  problema: string
+  bike: string
+  localizacao: string
+  pagamento: string
+  status?: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  user: Prisma.UserCreateNestedOneWithoutPedidosCriadosInput
+  tecnico?: Prisma.UserCreateNestedOneWithoutPedidosAtendidosInput
+  avaliacao?: Prisma.AvaliacaoCreateNestedOneWithoutPedidoInput
+}
+
+export type PedidoUncheckedCreateWithoutTecnicoSolicitadoInput = {
+  id?: string
+  codigo: string
+  tipo: string
+  telefone: string
+  problema: string
+  bike: string
+  localizacao: string
+  pagamento: string
+  status?: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  userId: string
+  tecnicoId?: string | null
+  avaliacao?: Prisma.AvaliacaoUncheckedCreateNestedOneWithoutPedidoInput
+}
+
+export type PedidoCreateOrConnectWithoutTecnicoSolicitadoInput = {
+  where: Prisma.PedidoWhereUniqueInput
+  create: Prisma.XOR<Prisma.PedidoCreateWithoutTecnicoSolicitadoInput, Prisma.PedidoUncheckedCreateWithoutTecnicoSolicitadoInput>
+}
+
+export type PedidoCreateManyTecnicoSolicitadoInputEnvelope = {
+  data: Prisma.PedidoCreateManyTecnicoSolicitadoInput | Prisma.PedidoCreateManyTecnicoSolicitadoInput[]
   skipDuplicates?: boolean
 }
 
@@ -580,9 +836,127 @@ export type PedidoScalarWhereInput = {
   localizacao?: Prisma.StringFilter<"Pedido"> | string
   pagamento?: Prisma.StringFilter<"Pedido"> | string
   status?: Prisma.StringFilter<"Pedido"> | string
-  userId?: Prisma.StringFilter<"Pedido"> | string
   createdAt?: Prisma.DateTimeFilter<"Pedido"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Pedido"> | Date | string
+  userId?: Prisma.StringFilter<"Pedido"> | string
+  tecnicoId?: Prisma.StringNullableFilter<"Pedido"> | string | null
+  tecnicoSolicitadoId?: Prisma.StringNullableFilter<"Pedido"> | string | null
+}
+
+export type PedidoUpsertWithWhereUniqueWithoutTecnicoInput = {
+  where: Prisma.PedidoWhereUniqueInput
+  update: Prisma.XOR<Prisma.PedidoUpdateWithoutTecnicoInput, Prisma.PedidoUncheckedUpdateWithoutTecnicoInput>
+  create: Prisma.XOR<Prisma.PedidoCreateWithoutTecnicoInput, Prisma.PedidoUncheckedCreateWithoutTecnicoInput>
+}
+
+export type PedidoUpdateWithWhereUniqueWithoutTecnicoInput = {
+  where: Prisma.PedidoWhereUniqueInput
+  data: Prisma.XOR<Prisma.PedidoUpdateWithoutTecnicoInput, Prisma.PedidoUncheckedUpdateWithoutTecnicoInput>
+}
+
+export type PedidoUpdateManyWithWhereWithoutTecnicoInput = {
+  where: Prisma.PedidoScalarWhereInput
+  data: Prisma.XOR<Prisma.PedidoUpdateManyMutationInput, Prisma.PedidoUncheckedUpdateManyWithoutTecnicoInput>
+}
+
+export type PedidoUpsertWithWhereUniqueWithoutTecnicoSolicitadoInput = {
+  where: Prisma.PedidoWhereUniqueInput
+  update: Prisma.XOR<Prisma.PedidoUpdateWithoutTecnicoSolicitadoInput, Prisma.PedidoUncheckedUpdateWithoutTecnicoSolicitadoInput>
+  create: Prisma.XOR<Prisma.PedidoCreateWithoutTecnicoSolicitadoInput, Prisma.PedidoUncheckedCreateWithoutTecnicoSolicitadoInput>
+}
+
+export type PedidoUpdateWithWhereUniqueWithoutTecnicoSolicitadoInput = {
+  where: Prisma.PedidoWhereUniqueInput
+  data: Prisma.XOR<Prisma.PedidoUpdateWithoutTecnicoSolicitadoInput, Prisma.PedidoUncheckedUpdateWithoutTecnicoSolicitadoInput>
+}
+
+export type PedidoUpdateManyWithWhereWithoutTecnicoSolicitadoInput = {
+  where: Prisma.PedidoScalarWhereInput
+  data: Prisma.XOR<Prisma.PedidoUpdateManyMutationInput, Prisma.PedidoUncheckedUpdateManyWithoutTecnicoSolicitadoInput>
+}
+
+export type PedidoCreateWithoutAvaliacaoInput = {
+  id?: string
+  codigo: string
+  tipo: string
+  telefone: string
+  problema: string
+  bike: string
+  localizacao: string
+  pagamento: string
+  status?: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  user: Prisma.UserCreateNestedOneWithoutPedidosCriadosInput
+  tecnico?: Prisma.UserCreateNestedOneWithoutPedidosAtendidosInput
+  tecnicoSolicitado?: Prisma.UserCreateNestedOneWithoutPedidosDirecionadosRecebidosInput
+}
+
+export type PedidoUncheckedCreateWithoutAvaliacaoInput = {
+  id?: string
+  codigo: string
+  tipo: string
+  telefone: string
+  problema: string
+  bike: string
+  localizacao: string
+  pagamento: string
+  status?: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  userId: string
+  tecnicoId?: string | null
+  tecnicoSolicitadoId?: string | null
+}
+
+export type PedidoCreateOrConnectWithoutAvaliacaoInput = {
+  where: Prisma.PedidoWhereUniqueInput
+  create: Prisma.XOR<Prisma.PedidoCreateWithoutAvaliacaoInput, Prisma.PedidoUncheckedCreateWithoutAvaliacaoInput>
+}
+
+export type PedidoUpsertWithoutAvaliacaoInput = {
+  update: Prisma.XOR<Prisma.PedidoUpdateWithoutAvaliacaoInput, Prisma.PedidoUncheckedUpdateWithoutAvaliacaoInput>
+  create: Prisma.XOR<Prisma.PedidoCreateWithoutAvaliacaoInput, Prisma.PedidoUncheckedCreateWithoutAvaliacaoInput>
+  where?: Prisma.PedidoWhereInput
+}
+
+export type PedidoUpdateToOneWithWhereWithoutAvaliacaoInput = {
+  where?: Prisma.PedidoWhereInput
+  data: Prisma.XOR<Prisma.PedidoUpdateWithoutAvaliacaoInput, Prisma.PedidoUncheckedUpdateWithoutAvaliacaoInput>
+}
+
+export type PedidoUpdateWithoutAvaliacaoInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  codigo?: Prisma.StringFieldUpdateOperationsInput | string
+  tipo?: Prisma.StringFieldUpdateOperationsInput | string
+  telefone?: Prisma.StringFieldUpdateOperationsInput | string
+  problema?: Prisma.StringFieldUpdateOperationsInput | string
+  bike?: Prisma.StringFieldUpdateOperationsInput | string
+  localizacao?: Prisma.StringFieldUpdateOperationsInput | string
+  pagamento?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  user?: Prisma.UserUpdateOneRequiredWithoutPedidosCriadosNestedInput
+  tecnico?: Prisma.UserUpdateOneWithoutPedidosAtendidosNestedInput
+  tecnicoSolicitado?: Prisma.UserUpdateOneWithoutPedidosDirecionadosRecebidosNestedInput
+}
+
+export type PedidoUncheckedUpdateWithoutAvaliacaoInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  codigo?: Prisma.StringFieldUpdateOperationsInput | string
+  tipo?: Prisma.StringFieldUpdateOperationsInput | string
+  telefone?: Prisma.StringFieldUpdateOperationsInput | string
+  problema?: Prisma.StringFieldUpdateOperationsInput | string
+  bike?: Prisma.StringFieldUpdateOperationsInput | string
+  localizacao?: Prisma.StringFieldUpdateOperationsInput | string
+  pagamento?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  tecnicoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tecnicoSolicitadoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type PedidoCreateManyUserInput = {
@@ -597,6 +971,40 @@ export type PedidoCreateManyUserInput = {
   status?: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  tecnicoId?: string | null
+  tecnicoSolicitadoId?: string | null
+}
+
+export type PedidoCreateManyTecnicoInput = {
+  id?: string
+  codigo: string
+  tipo: string
+  telefone: string
+  problema: string
+  bike: string
+  localizacao: string
+  pagamento: string
+  status?: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  userId: string
+  tecnicoSolicitadoId?: string | null
+}
+
+export type PedidoCreateManyTecnicoSolicitadoInput = {
+  id?: string
+  codigo: string
+  tipo: string
+  telefone: string
+  problema: string
+  bike: string
+  localizacao: string
+  pagamento: string
+  status?: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  userId: string
+  tecnicoId?: string | null
 }
 
 export type PedidoUpdateWithoutUserInput = {
@@ -611,6 +1019,9 @@ export type PedidoUpdateWithoutUserInput = {
   status?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tecnico?: Prisma.UserUpdateOneWithoutPedidosAtendidosNestedInput
+  tecnicoSolicitado?: Prisma.UserUpdateOneWithoutPedidosDirecionadosRecebidosNestedInput
+  avaliacao?: Prisma.AvaliacaoUpdateOneWithoutPedidoNestedInput
 }
 
 export type PedidoUncheckedUpdateWithoutUserInput = {
@@ -625,6 +1036,9 @@ export type PedidoUncheckedUpdateWithoutUserInput = {
   status?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tecnicoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tecnicoSolicitadoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avaliacao?: Prisma.AvaliacaoUncheckedUpdateOneWithoutPedidoNestedInput
 }
 
 export type PedidoUncheckedUpdateManyWithoutUserInput = {
@@ -639,6 +1053,108 @@ export type PedidoUncheckedUpdateManyWithoutUserInput = {
   status?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tecnicoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tecnicoSolicitadoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+}
+
+export type PedidoUpdateWithoutTecnicoInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  codigo?: Prisma.StringFieldUpdateOperationsInput | string
+  tipo?: Prisma.StringFieldUpdateOperationsInput | string
+  telefone?: Prisma.StringFieldUpdateOperationsInput | string
+  problema?: Prisma.StringFieldUpdateOperationsInput | string
+  bike?: Prisma.StringFieldUpdateOperationsInput | string
+  localizacao?: Prisma.StringFieldUpdateOperationsInput | string
+  pagamento?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  user?: Prisma.UserUpdateOneRequiredWithoutPedidosCriadosNestedInput
+  tecnicoSolicitado?: Prisma.UserUpdateOneWithoutPedidosDirecionadosRecebidosNestedInput
+  avaliacao?: Prisma.AvaliacaoUpdateOneWithoutPedidoNestedInput
+}
+
+export type PedidoUncheckedUpdateWithoutTecnicoInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  codigo?: Prisma.StringFieldUpdateOperationsInput | string
+  tipo?: Prisma.StringFieldUpdateOperationsInput | string
+  telefone?: Prisma.StringFieldUpdateOperationsInput | string
+  problema?: Prisma.StringFieldUpdateOperationsInput | string
+  bike?: Prisma.StringFieldUpdateOperationsInput | string
+  localizacao?: Prisma.StringFieldUpdateOperationsInput | string
+  pagamento?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  tecnicoSolicitadoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avaliacao?: Prisma.AvaliacaoUncheckedUpdateOneWithoutPedidoNestedInput
+}
+
+export type PedidoUncheckedUpdateManyWithoutTecnicoInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  codigo?: Prisma.StringFieldUpdateOperationsInput | string
+  tipo?: Prisma.StringFieldUpdateOperationsInput | string
+  telefone?: Prisma.StringFieldUpdateOperationsInput | string
+  problema?: Prisma.StringFieldUpdateOperationsInput | string
+  bike?: Prisma.StringFieldUpdateOperationsInput | string
+  localizacao?: Prisma.StringFieldUpdateOperationsInput | string
+  pagamento?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  tecnicoSolicitadoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+}
+
+export type PedidoUpdateWithoutTecnicoSolicitadoInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  codigo?: Prisma.StringFieldUpdateOperationsInput | string
+  tipo?: Prisma.StringFieldUpdateOperationsInput | string
+  telefone?: Prisma.StringFieldUpdateOperationsInput | string
+  problema?: Prisma.StringFieldUpdateOperationsInput | string
+  bike?: Prisma.StringFieldUpdateOperationsInput | string
+  localizacao?: Prisma.StringFieldUpdateOperationsInput | string
+  pagamento?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  user?: Prisma.UserUpdateOneRequiredWithoutPedidosCriadosNestedInput
+  tecnico?: Prisma.UserUpdateOneWithoutPedidosAtendidosNestedInput
+  avaliacao?: Prisma.AvaliacaoUpdateOneWithoutPedidoNestedInput
+}
+
+export type PedidoUncheckedUpdateWithoutTecnicoSolicitadoInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  codigo?: Prisma.StringFieldUpdateOperationsInput | string
+  tipo?: Prisma.StringFieldUpdateOperationsInput | string
+  telefone?: Prisma.StringFieldUpdateOperationsInput | string
+  problema?: Prisma.StringFieldUpdateOperationsInput | string
+  bike?: Prisma.StringFieldUpdateOperationsInput | string
+  localizacao?: Prisma.StringFieldUpdateOperationsInput | string
+  pagamento?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  tecnicoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avaliacao?: Prisma.AvaliacaoUncheckedUpdateOneWithoutPedidoNestedInput
+}
+
+export type PedidoUncheckedUpdateManyWithoutTecnicoSolicitadoInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  codigo?: Prisma.StringFieldUpdateOperationsInput | string
+  tipo?: Prisma.StringFieldUpdateOperationsInput | string
+  telefone?: Prisma.StringFieldUpdateOperationsInput | string
+  problema?: Prisma.StringFieldUpdateOperationsInput | string
+  bike?: Prisma.StringFieldUpdateOperationsInput | string
+  localizacao?: Prisma.StringFieldUpdateOperationsInput | string
+  pagamento?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  tecnicoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 
@@ -653,10 +1169,15 @@ export type PedidoSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   localizacao?: boolean
   pagamento?: boolean
   status?: boolean
-  userId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  userId?: boolean
+  tecnicoId?: boolean
+  tecnicoSolicitadoId?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  tecnico?: boolean | Prisma.Pedido$tecnicoArgs<ExtArgs>
+  tecnicoSolicitado?: boolean | Prisma.Pedido$tecnicoSolicitadoArgs<ExtArgs>
+  avaliacao?: boolean | Prisma.Pedido$avaliacaoArgs<ExtArgs>
 }, ExtArgs["result"]["pedido"]>
 
 export type PedidoSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -669,10 +1190,14 @@ export type PedidoSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extens
   localizacao?: boolean
   pagamento?: boolean
   status?: boolean
-  userId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  userId?: boolean
+  tecnicoId?: boolean
+  tecnicoSolicitadoId?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  tecnico?: boolean | Prisma.Pedido$tecnicoArgs<ExtArgs>
+  tecnicoSolicitado?: boolean | Prisma.Pedido$tecnicoSolicitadoArgs<ExtArgs>
 }, ExtArgs["result"]["pedido"]>
 
 export type PedidoSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -685,10 +1210,14 @@ export type PedidoSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
   localizacao?: boolean
   pagamento?: boolean
   status?: boolean
-  userId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  userId?: boolean
+  tecnicoId?: boolean
+  tecnicoSolicitadoId?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  tecnico?: boolean | Prisma.Pedido$tecnicoArgs<ExtArgs>
+  tecnicoSolicitado?: boolean | Prisma.Pedido$tecnicoSolicitadoArgs<ExtArgs>
 }, ExtArgs["result"]["pedido"]>
 
 export type PedidoSelectScalar = {
@@ -701,26 +1230,38 @@ export type PedidoSelectScalar = {
   localizacao?: boolean
   pagamento?: boolean
   status?: boolean
-  userId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  userId?: boolean
+  tecnicoId?: boolean
+  tecnicoSolicitadoId?: boolean
 }
 
-export type PedidoOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "codigo" | "tipo" | "telefone" | "problema" | "bike" | "localizacao" | "pagamento" | "status" | "userId" | "createdAt" | "updatedAt", ExtArgs["result"]["pedido"]>
+export type PedidoOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "codigo" | "tipo" | "telefone" | "problema" | "bike" | "localizacao" | "pagamento" | "status" | "createdAt" | "updatedAt" | "userId" | "tecnicoId" | "tecnicoSolicitadoId", ExtArgs["result"]["pedido"]>
 export type PedidoInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  tecnico?: boolean | Prisma.Pedido$tecnicoArgs<ExtArgs>
+  tecnicoSolicitado?: boolean | Prisma.Pedido$tecnicoSolicitadoArgs<ExtArgs>
+  avaliacao?: boolean | Prisma.Pedido$avaliacaoArgs<ExtArgs>
 }
 export type PedidoIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  tecnico?: boolean | Prisma.Pedido$tecnicoArgs<ExtArgs>
+  tecnicoSolicitado?: boolean | Prisma.Pedido$tecnicoSolicitadoArgs<ExtArgs>
 }
 export type PedidoIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  tecnico?: boolean | Prisma.Pedido$tecnicoArgs<ExtArgs>
+  tecnicoSolicitado?: boolean | Prisma.Pedido$tecnicoSolicitadoArgs<ExtArgs>
 }
 
 export type $PedidoPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Pedido"
   objects: {
     user: Prisma.$UserPayload<ExtArgs>
+    tecnico: Prisma.$UserPayload<ExtArgs> | null
+    tecnicoSolicitado: Prisma.$UserPayload<ExtArgs> | null
+    avaliacao: Prisma.$AvaliacaoPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -732,9 +1273,11 @@ export type $PedidoPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     localizacao: string
     pagamento: string
     status: string
-    userId: string
     createdAt: Date
     updatedAt: Date
+    userId: string
+    tecnicoId: string | null
+    tecnicoSolicitadoId: string | null
   }, ExtArgs["result"]["pedido"]>
   composites: {}
 }
@@ -1130,6 +1673,9 @@ readonly fields: PedidoFieldRefs;
 export interface Prisma__PedidoClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  tecnico<T extends Prisma.Pedido$tecnicoArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Pedido$tecnicoArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  tecnicoSolicitado<T extends Prisma.Pedido$tecnicoSolicitadoArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Pedido$tecnicoSolicitadoArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  avaliacao<T extends Prisma.Pedido$avaliacaoArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Pedido$avaliacaoArgs<ExtArgs>>): Prisma.Prisma__AvaliacaoClient<runtime.Types.Result.GetResult<Prisma.$AvaliacaoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1168,9 +1714,11 @@ export interface PedidoFieldRefs {
   readonly localizacao: Prisma.FieldRef<"Pedido", 'String'>
   readonly pagamento: Prisma.FieldRef<"Pedido", 'String'>
   readonly status: Prisma.FieldRef<"Pedido", 'String'>
-  readonly userId: Prisma.FieldRef<"Pedido", 'String'>
   readonly createdAt: Prisma.FieldRef<"Pedido", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Pedido", 'DateTime'>
+  readonly userId: Prisma.FieldRef<"Pedido", 'String'>
+  readonly tecnicoId: Prisma.FieldRef<"Pedido", 'String'>
+  readonly tecnicoSolicitadoId: Prisma.FieldRef<"Pedido", 'String'>
 }
     
 
@@ -1569,6 +2117,63 @@ export type PedidoDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Intern
    * Limit how many Pedidos to delete.
    */
   limit?: number
+}
+
+/**
+ * Pedido.tecnico
+ */
+export type Pedido$tecnicoArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the User
+   */
+  select?: Prisma.UserSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the User
+   */
+  omit?: Prisma.UserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  where?: Prisma.UserWhereInput
+}
+
+/**
+ * Pedido.tecnicoSolicitado
+ */
+export type Pedido$tecnicoSolicitadoArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the User
+   */
+  select?: Prisma.UserSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the User
+   */
+  omit?: Prisma.UserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  where?: Prisma.UserWhereInput
+}
+
+/**
+ * Pedido.avaliacao
+ */
+export type Pedido$avaliacaoArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Avaliacao
+   */
+  select?: Prisma.AvaliacaoSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Avaliacao
+   */
+  omit?: Prisma.AvaliacaoOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AvaliacaoInclude<ExtArgs> | null
+  where?: Prisma.AvaliacaoWhereInput
 }
 
 /**
