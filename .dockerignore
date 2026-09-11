@@ -1,0 +1,11 @@
+node_modules
+dist
+.env
+.env.*
+.git
+.gitignore
+.agents
+skills-lock.json
+readme.md
+Dockerfile
+.dockerignore
