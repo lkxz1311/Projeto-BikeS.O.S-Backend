@@ -1,0 +1,144 @@
+import { Request, Response } from "express";
+import PedidoService from "../services/PedidoService.js";
+
+class PedidoController {
+  async listarPorUsuario(request: Request, response: Response) {
+    const { userId } = request.params;
+
+    if (!userId) {
+      return response.status(400).json({ mensagem: "userId é obrigatório" });
+    }
+
+    try {
+      const pedidos = await PedidoService.listarPorUsuario(userId);
+      return response.json(pedidos);
+    } catch (error) {
+      return response.status(500).json({ mensagem: "Erro ao buscar pedidos" });
+    }
+  }
+
+  async listarPorTecnico(request: Request, response: Response) {
+    const { tecnicoId } = request.params;
+
+    if (!tecnicoId) {
+      return response.status(400).json({ mensagem: "tecnicoId é obrigatório" });
+    }
+
+    try {
+      const pedidos = await PedidoService.listarPorTecnico(tecnicoId);
+      return response.json(pedidos);
+    } catch (error) {
+      return response.status(500).json({ mensagem: "Erro ao buscar pedidos do técnico" });
+    }
+  }
+
+  async listarDisponiveis(request: Request, response: Response) {
+    const { tecnicoId } = request.query;
+
+    try {
+      const pedidos = await PedidoService.listarDisponiveis(tecnicoId as string | undefined);
+      return response.json(pedidos);
+    } catch (error) {
+      return response.status(500).json({ mensagem: "Erro ao buscar pedidos disponíveis" });
+    }
+  }
+
+  async listarEmAndamento(request: Request, response: Response) {
+    try {
+      const pedidos = await PedidoService.listarEmAndamento();
+      return response.json(pedidos);
+    } catch (error) {
+      return response.status(500).json({ mensagem: "Erro ao buscar pedidos em andamento" });
+    }
+  }
+
+  async buscarPorId(request: Request, response: Response) {
+    const { id } = request.params;
+
+    try {
+      const pedido = await PedidoService.buscarPorId(id);
+
+      if (!pedido) {
+        return response.status(404).json({ mensagem: "Pedido não encontrado" });
+      }
+
+      return response.json(pedido);
+    } catch (error) {
+      return response.status(500).json({ mensagem: "Erro ao buscar pedido" });
+    }
+  }
+
+  async criar(request: Request, response: Response) {
+    const { tipo, userId, telefone, problema, bike, localizacao, pagamento, tecnicoSolicitadoId } = request.body;
+
+    if (!tipo || !userId || !telefone || !problema || !bike || !localizacao || !pagamento) {
+      return response.status(400).json({ mensagem: "Preencha todos os campos obrigatórios" });
+    }
+
+    try {
+      const pedido = await PedidoService.criar({
+        tipo,
+        userId,
+        telefone,
+        problema,
+        bike,
+        localizacao,
+        pagamento,
+        tecnicoSolicitadoId,
+      });
+
+      return response.status(201).json(pedido);
+    } catch (error) {
+      return response.status(500).json({ mensagem: "Erro ao criar pedido" });
+    }
+  }
+
+  async atualizarStatus(request: Request, response: Response) {
+    const { id } = request.params;
+    const { status, tecnicoId } = request.body;
+
+    if (!status) {
+      return response.status(400).json({ mensagem: "Status é obrigatório" });
+    }
+
+    try {
+      const pedido = await PedidoService.atualizarStatus(id, status, tecnicoId);
+      return response.json(pedido);
+    } catch (error) {
+      return response.status(500).json({ mensagem: "Erro ao atualizar status" });
+    }
+  }
+
+  async listarHistorico(request: Request, response: Response) {
+    try {
+      const pedidos = await PedidoService.listarHistorico();
+      return response.json(pedidos);
+    } catch (error) {
+      return response.status(500).json({ mensagem: "Erro ao buscar histórico" });
+    }
+  }
+
+  async avaliar(request: Request, response: Response) {
+    const { pedidoId, clienteId, tecnicoId, nota, comentario } = request.body;
+
+    if (!pedidoId || !clienteId || nota === undefined) {
+      return response.status(400).json({ mensagem: "pedidoId, clienteId e nota são obrigatórios" });
+    }
+
+    try {
+      const avaliacao = await PedidoService.criarAvaliacao({
+        pedidoId,
+        clienteId,
+        tecnicoId,
+        nota: Number(nota),
+        comentario,
+      });
+
+      return response.status(201).json(avaliacao);
+    } catch (error) {
+      return response.status(500).json({ mensagem: "Erro ao salvar avaliação" });
+    }
+  }
+}
+
+export default new PedidoController();

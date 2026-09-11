@@ -1,0 +1,70 @@
+generator client {
+  provider        = "prisma-client"
+  output          = "./generated/prisma/client"
+  previewFeatures = ["driverAdapters"]
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  email     String   @unique
+  nome      String
+  senha     String
+  telefone  String
+  tipo      String   @default("cliente")
+  updatedAt DateTime @updatedAt
+
+  pedidosCriados               Pedido[]    @relation("PedidoCliente")
+  pedidosAtendidos             Pedido[]    @relation("PedidoTecnico")
+  pedidosDirecionadosRecebidos Pedido[]    @relation("PedidoTecnicoSolicitado")
+
+  avaliacoesFeitas    Avaliacao[] @relation("AvaliacaoCliente") 
+  avaliacoesRecebidas Avaliacao[] @relation("AvaliacaoTecnico")  
+}
+
+model Pedido {
+  id          String   @id @default(uuid())
+  codigo      String
+  tipo        String
+  telefone    String
+  problema    String
+  bike        String
+  localizacao String
+  pagamento   String
+  status      String   @default("Aguardando técnico aceitar")
+  avaliado    Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  userId      String
+  user        User     @relation("PedidoCliente", fields: [userId], references: [id])
+
+  tecnicoId   String?
+  tecnico     User?    @relation("PedidoTecnico", fields: [tecnicoId], references: [id])
+
+  tecnicoSolicitadoId String?
+  tecnicoSolicitado   User?   @relation("PedidoTecnicoSolicitado", fields: [tecnicoSolicitadoId], references: [id])
+
+  avaliacao   Avaliacao?                                             
+}
+
+model Avaliacao {
+  id         String   @id @default(uuid())
+  nota       Int
+  comentario String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  clienteId  String
+  cliente    User     @relation("AvaliacaoCliente", fields: [clienteId], references: [id])
+
+  tecnicoId  String?
+  tecnico    User?    @relation("AvaliacaoTecnico", fields: [tecnicoId], references: [id])
+
+  pedidoId   String   @unique
+  pedido     Pedido   @relation(fields: [pedidoId], references: [id])
+}
