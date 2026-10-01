@@ -28,6 +28,11 @@ export type User = Prisma.UserModel
  */
 export type Pedido = Prisma.PedidoModel
 /**
+ * Model LocalizacaoTecnico
+ * 
+ */
+export type LocalizacaoTecnico = Prisma.LocalizacaoTecnicoModel
+/**
  * Model Avaliacao
  * 
  */

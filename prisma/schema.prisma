@@ -49,7 +49,18 @@ model Pedido {
   tecnicoSolicitadoId String?
   tecnicoSolicitado   User?   @relation("PedidoTecnicoSolicitado", fields: [tecnicoSolicitadoId], references: [id])
 
-  avaliacao   Avaliacao?                                             
+  avaliacao          Avaliacao?
+  localizacaoTecnico LocalizacaoTecnico?
+}
+
+model LocalizacaoTecnico {
+  id        String   @id @default(uuid())
+  latitude  Float
+  longitude Float
+  updatedAt DateTime @updatedAt
+
+  pedidoId  String   @unique
+  pedido    Pedido   @relation(fields: [pedidoId], references: [id], onDelete: Cascade)
 }
 
 model Avaliacao {

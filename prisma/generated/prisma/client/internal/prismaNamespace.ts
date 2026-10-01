@@ -386,6 +386,7 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 export const ModelName = {
   User: 'User',
   Pedido: 'Pedido',
+  LocalizacaoTecnico: 'LocalizacaoTecnico',
   Avaliacao: 'Avaliacao'
 } as const
 
@@ -402,7 +403,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "pedido" | "avaliacao"
+    modelProps: "user" | "pedido" | "localizacaoTecnico" | "avaliacao"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -554,6 +555,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    LocalizacaoTecnico: {
+      payload: Prisma.$LocalizacaoTecnicoPayload<ExtArgs>
+      fields: Prisma.LocalizacaoTecnicoFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.LocalizacaoTecnicoFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LocalizacaoTecnicoPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.LocalizacaoTecnicoFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LocalizacaoTecnicoPayload>
+        }
+        findFirst: {
+          args: Prisma.LocalizacaoTecnicoFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LocalizacaoTecnicoPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.LocalizacaoTecnicoFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LocalizacaoTecnicoPayload>
+        }
+        findMany: {
+          args: Prisma.LocalizacaoTecnicoFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LocalizacaoTecnicoPayload>[]
+        }
+        create: {
+          args: Prisma.LocalizacaoTecnicoCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LocalizacaoTecnicoPayload>
+        }
+        createMany: {
+          args: Prisma.LocalizacaoTecnicoCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.LocalizacaoTecnicoCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LocalizacaoTecnicoPayload>[]
+        }
+        delete: {
+          args: Prisma.LocalizacaoTecnicoDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LocalizacaoTecnicoPayload>
+        }
+        update: {
+          args: Prisma.LocalizacaoTecnicoUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LocalizacaoTecnicoPayload>
+        }
+        deleteMany: {
+          args: Prisma.LocalizacaoTecnicoDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.LocalizacaoTecnicoUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.LocalizacaoTecnicoUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LocalizacaoTecnicoPayload>[]
+        }
+        upsert: {
+          args: Prisma.LocalizacaoTecnicoUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LocalizacaoTecnicoPayload>
+        }
+        aggregate: {
+          args: Prisma.LocalizacaoTecnicoAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateLocalizacaoTecnico>
+        }
+        groupBy: {
+          args: Prisma.LocalizacaoTecnicoGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.LocalizacaoTecnicoGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.LocalizacaoTecnicoCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.LocalizacaoTecnicoCountAggregateOutputType> | number
+        }
+      }
+    }
     Avaliacao: {
       payload: Prisma.$AvaliacaoPayload<ExtArgs>
       fields: Prisma.AvaliacaoFieldRefs
@@ -702,6 +777,17 @@ export const PedidoScalarFieldEnum = {
 export type PedidoScalarFieldEnum = (typeof PedidoScalarFieldEnum)[keyof typeof PedidoScalarFieldEnum]
 
 
+export const LocalizacaoTecnicoScalarFieldEnum = {
+  id: 'id',
+  latitude: 'latitude',
+  longitude: 'longitude',
+  updatedAt: 'updatedAt',
+  pedidoId: 'pedidoId'
+} as const
+
+export type LocalizacaoTecnicoScalarFieldEnum = (typeof LocalizacaoTecnicoScalarFieldEnum)[keyof typeof LocalizacaoTecnicoScalarFieldEnum]
+
+
 export const AvaliacaoScalarFieldEnum = {
   id: 'id',
   nota: 'nota',
@@ -782,20 +868,6 @@ export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel,
 
 
 /**
- * Reference to a field of type 'Int'
- */
-export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
-    
-
-
-/**
- * Reference to a field of type 'Int[]'
- */
-export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
-    
-
-
-/**
  * Reference to a field of type 'Float'
  */
 export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -806,6 +878,20 @@ export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, '
  * Reference to a field of type 'Float[]'
  */
 export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
+    
+
+
+/**
+ * Reference to a field of type 'Int'
+ */
+export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+    
+
+
+/**
+ * Reference to a field of type 'Int[]'
+ */
+export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
     
 
 /**
@@ -920,6 +1006,7 @@ export type PrismaClientOptions = ({
 export type GlobalOmitConfig = {
   user?: Prisma.UserOmit
   pedido?: Prisma.PedidoOmit
+  localizacaoTecnico?: Prisma.LocalizacaoTecnicoOmit
   avaliacao?: Prisma.AvaliacaoOmit
 }
 

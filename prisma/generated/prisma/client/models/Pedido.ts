@@ -266,6 +266,7 @@ export type PedidoWhereInput = {
   tecnico?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   tecnicoSolicitado?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   avaliacao?: Prisma.XOR<Prisma.AvaliacaoNullableScalarRelationFilter, Prisma.AvaliacaoWhereInput> | null
+  localizacaoTecnico?: Prisma.XOR<Prisma.LocalizacaoTecnicoNullableScalarRelationFilter, Prisma.LocalizacaoTecnicoWhereInput> | null
 }
 
 export type PedidoOrderByWithRelationInput = {
@@ -288,6 +289,7 @@ export type PedidoOrderByWithRelationInput = {
   tecnico?: Prisma.UserOrderByWithRelationInput
   tecnicoSolicitado?: Prisma.UserOrderByWithRelationInput
   avaliacao?: Prisma.AvaliacaoOrderByWithRelationInput
+  localizacaoTecnico?: Prisma.LocalizacaoTecnicoOrderByWithRelationInput
 }
 
 export type PedidoWhereUniqueInput = Prisma.AtLeast<{
@@ -313,6 +315,7 @@ export type PedidoWhereUniqueInput = Prisma.AtLeast<{
   tecnico?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   tecnicoSolicitado?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   avaliacao?: Prisma.XOR<Prisma.AvaliacaoNullableScalarRelationFilter, Prisma.AvaliacaoWhereInput> | null
+  localizacaoTecnico?: Prisma.XOR<Prisma.LocalizacaoTecnicoNullableScalarRelationFilter, Prisma.LocalizacaoTecnicoWhereInput> | null
 }, "id">
 
 export type PedidoOrderByWithAggregationInput = {
@@ -374,6 +377,7 @@ export type PedidoCreateInput = {
   tecnico?: Prisma.UserCreateNestedOneWithoutPedidosAtendidosInput
   tecnicoSolicitado?: Prisma.UserCreateNestedOneWithoutPedidosDirecionadosRecebidosInput
   avaliacao?: Prisma.AvaliacaoCreateNestedOneWithoutPedidoInput
+  localizacaoTecnico?: Prisma.LocalizacaoTecnicoCreateNestedOneWithoutPedidoInput
 }
 
 export type PedidoUncheckedCreateInput = {
@@ -393,6 +397,7 @@ export type PedidoUncheckedCreateInput = {
   tecnicoId?: string | null
   tecnicoSolicitadoId?: string | null
   avaliacao?: Prisma.AvaliacaoUncheckedCreateNestedOneWithoutPedidoInput
+  localizacaoTecnico?: Prisma.LocalizacaoTecnicoUncheckedCreateNestedOneWithoutPedidoInput
 }
 
 export type PedidoUpdateInput = {
@@ -412,6 +417,7 @@ export type PedidoUpdateInput = {
   tecnico?: Prisma.UserUpdateOneWithoutPedidosAtendidosNestedInput
   tecnicoSolicitado?: Prisma.UserUpdateOneWithoutPedidosDirecionadosRecebidosNestedInput
   avaliacao?: Prisma.AvaliacaoUpdateOneWithoutPedidoNestedInput
+  localizacaoTecnico?: Prisma.LocalizacaoTecnicoUpdateOneWithoutPedidoNestedInput
 }
 
 export type PedidoUncheckedUpdateInput = {
@@ -431,6 +437,7 @@ export type PedidoUncheckedUpdateInput = {
   tecnicoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tecnicoSolicitadoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avaliacao?: Prisma.AvaliacaoUncheckedUpdateOneWithoutPedidoNestedInput
+  localizacaoTecnico?: Prisma.LocalizacaoTecnicoUncheckedUpdateOneWithoutPedidoNestedInput
 }
 
 export type PedidoCreateManyInput = {
@@ -687,6 +694,20 @@ export type NullableStringFieldUpdateOperationsInput = {
   set?: string | null
 }
 
+export type PedidoCreateNestedOneWithoutLocalizacaoTecnicoInput = {
+  create?: Prisma.XOR<Prisma.PedidoCreateWithoutLocalizacaoTecnicoInput, Prisma.PedidoUncheckedCreateWithoutLocalizacaoTecnicoInput>
+  connectOrCreate?: Prisma.PedidoCreateOrConnectWithoutLocalizacaoTecnicoInput
+  connect?: Prisma.PedidoWhereUniqueInput
+}
+
+export type PedidoUpdateOneRequiredWithoutLocalizacaoTecnicoNestedInput = {
+  create?: Prisma.XOR<Prisma.PedidoCreateWithoutLocalizacaoTecnicoInput, Prisma.PedidoUncheckedCreateWithoutLocalizacaoTecnicoInput>
+  connectOrCreate?: Prisma.PedidoCreateOrConnectWithoutLocalizacaoTecnicoInput
+  upsert?: Prisma.PedidoUpsertWithoutLocalizacaoTecnicoInput
+  connect?: Prisma.PedidoWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.PedidoUpdateToOneWithWhereWithoutLocalizacaoTecnicoInput, Prisma.PedidoUpdateWithoutLocalizacaoTecnicoInput>, Prisma.PedidoUncheckedUpdateWithoutLocalizacaoTecnicoInput>
+}
+
 export type PedidoCreateNestedOneWithoutAvaliacaoInput = {
   create?: Prisma.XOR<Prisma.PedidoCreateWithoutAvaliacaoInput, Prisma.PedidoUncheckedCreateWithoutAvaliacaoInput>
   connectOrCreate?: Prisma.PedidoCreateOrConnectWithoutAvaliacaoInput
@@ -717,6 +738,7 @@ export type PedidoCreateWithoutUserInput = {
   tecnico?: Prisma.UserCreateNestedOneWithoutPedidosAtendidosInput
   tecnicoSolicitado?: Prisma.UserCreateNestedOneWithoutPedidosDirecionadosRecebidosInput
   avaliacao?: Prisma.AvaliacaoCreateNestedOneWithoutPedidoInput
+  localizacaoTecnico?: Prisma.LocalizacaoTecnicoCreateNestedOneWithoutPedidoInput
 }
 
 export type PedidoUncheckedCreateWithoutUserInput = {
@@ -735,6 +757,7 @@ export type PedidoUncheckedCreateWithoutUserInput = {
   tecnicoId?: string | null
   tecnicoSolicitadoId?: string | null
   avaliacao?: Prisma.AvaliacaoUncheckedCreateNestedOneWithoutPedidoInput
+  localizacaoTecnico?: Prisma.LocalizacaoTecnicoUncheckedCreateNestedOneWithoutPedidoInput
 }
 
 export type PedidoCreateOrConnectWithoutUserInput = {
@@ -763,6 +786,7 @@ export type PedidoCreateWithoutTecnicoInput = {
   user: Prisma.UserCreateNestedOneWithoutPedidosCriadosInput
   tecnicoSolicitado?: Prisma.UserCreateNestedOneWithoutPedidosDirecionadosRecebidosInput
   avaliacao?: Prisma.AvaliacaoCreateNestedOneWithoutPedidoInput
+  localizacaoTecnico?: Prisma.LocalizacaoTecnicoCreateNestedOneWithoutPedidoInput
 }
 
 export type PedidoUncheckedCreateWithoutTecnicoInput = {
@@ -781,6 +805,7 @@ export type PedidoUncheckedCreateWithoutTecnicoInput = {
   userId: string
   tecnicoSolicitadoId?: string | null
   avaliacao?: Prisma.AvaliacaoUncheckedCreateNestedOneWithoutPedidoInput
+  localizacaoTecnico?: Prisma.LocalizacaoTecnicoUncheckedCreateNestedOneWithoutPedidoInput
 }
 
 export type PedidoCreateOrConnectWithoutTecnicoInput = {
@@ -809,6 +834,7 @@ export type PedidoCreateWithoutTecnicoSolicitadoInput = {
   user: Prisma.UserCreateNestedOneWithoutPedidosCriadosInput
   tecnico?: Prisma.UserCreateNestedOneWithoutPedidosAtendidosInput
   avaliacao?: Prisma.AvaliacaoCreateNestedOneWithoutPedidoInput
+  localizacaoTecnico?: Prisma.LocalizacaoTecnicoCreateNestedOneWithoutPedidoInput
 }
 
 export type PedidoUncheckedCreateWithoutTecnicoSolicitadoInput = {
@@ -827,6 +853,7 @@ export type PedidoUncheckedCreateWithoutTecnicoSolicitadoInput = {
   userId: string
   tecnicoId?: string | null
   avaliacao?: Prisma.AvaliacaoUncheckedCreateNestedOneWithoutPedidoInput
+  localizacaoTecnico?: Prisma.LocalizacaoTecnicoUncheckedCreateNestedOneWithoutPedidoInput
 }
 
 export type PedidoCreateOrConnectWithoutTecnicoSolicitadoInput = {
@@ -908,6 +935,98 @@ export type PedidoUpdateManyWithWhereWithoutTecnicoSolicitadoInput = {
   data: Prisma.XOR<Prisma.PedidoUpdateManyMutationInput, Prisma.PedidoUncheckedUpdateManyWithoutTecnicoSolicitadoInput>
 }
 
+export type PedidoCreateWithoutLocalizacaoTecnicoInput = {
+  id?: string
+  codigo: string
+  tipo: string
+  telefone: string
+  problema: string
+  bike: string
+  localizacao: string
+  pagamento: string
+  status?: string
+  avaliado?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  user: Prisma.UserCreateNestedOneWithoutPedidosCriadosInput
+  tecnico?: Prisma.UserCreateNestedOneWithoutPedidosAtendidosInput
+  tecnicoSolicitado?: Prisma.UserCreateNestedOneWithoutPedidosDirecionadosRecebidosInput
+  avaliacao?: Prisma.AvaliacaoCreateNestedOneWithoutPedidoInput
+}
+
+export type PedidoUncheckedCreateWithoutLocalizacaoTecnicoInput = {
+  id?: string
+  codigo: string
+  tipo: string
+  telefone: string
+  problema: string
+  bike: string
+  localizacao: string
+  pagamento: string
+  status?: string
+  avaliado?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  userId: string
+  tecnicoId?: string | null
+  tecnicoSolicitadoId?: string | null
+  avaliacao?: Prisma.AvaliacaoUncheckedCreateNestedOneWithoutPedidoInput
+}
+
+export type PedidoCreateOrConnectWithoutLocalizacaoTecnicoInput = {
+  where: Prisma.PedidoWhereUniqueInput
+  create: Prisma.XOR<Prisma.PedidoCreateWithoutLocalizacaoTecnicoInput, Prisma.PedidoUncheckedCreateWithoutLocalizacaoTecnicoInput>
+}
+
+export type PedidoUpsertWithoutLocalizacaoTecnicoInput = {
+  update: Prisma.XOR<Prisma.PedidoUpdateWithoutLocalizacaoTecnicoInput, Prisma.PedidoUncheckedUpdateWithoutLocalizacaoTecnicoInput>
+  create: Prisma.XOR<Prisma.PedidoCreateWithoutLocalizacaoTecnicoInput, Prisma.PedidoUncheckedCreateWithoutLocalizacaoTecnicoInput>
+  where?: Prisma.PedidoWhereInput
+}
+
+export type PedidoUpdateToOneWithWhereWithoutLocalizacaoTecnicoInput = {
+  where?: Prisma.PedidoWhereInput
+  data: Prisma.XOR<Prisma.PedidoUpdateWithoutLocalizacaoTecnicoInput, Prisma.PedidoUncheckedUpdateWithoutLocalizacaoTecnicoInput>
+}
+
+export type PedidoUpdateWithoutLocalizacaoTecnicoInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  codigo?: Prisma.StringFieldUpdateOperationsInput | string
+  tipo?: Prisma.StringFieldUpdateOperationsInput | string
+  telefone?: Prisma.StringFieldUpdateOperationsInput | string
+  problema?: Prisma.StringFieldUpdateOperationsInput | string
+  bike?: Prisma.StringFieldUpdateOperationsInput | string
+  localizacao?: Prisma.StringFieldUpdateOperationsInput | string
+  pagamento?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  avaliado?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  user?: Prisma.UserUpdateOneRequiredWithoutPedidosCriadosNestedInput
+  tecnico?: Prisma.UserUpdateOneWithoutPedidosAtendidosNestedInput
+  tecnicoSolicitado?: Prisma.UserUpdateOneWithoutPedidosDirecionadosRecebidosNestedInput
+  avaliacao?: Prisma.AvaliacaoUpdateOneWithoutPedidoNestedInput
+}
+
+export type PedidoUncheckedUpdateWithoutLocalizacaoTecnicoInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  codigo?: Prisma.StringFieldUpdateOperationsInput | string
+  tipo?: Prisma.StringFieldUpdateOperationsInput | string
+  telefone?: Prisma.StringFieldUpdateOperationsInput | string
+  problema?: Prisma.StringFieldUpdateOperationsInput | string
+  bike?: Prisma.StringFieldUpdateOperationsInput | string
+  localizacao?: Prisma.StringFieldUpdateOperationsInput | string
+  pagamento?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  avaliado?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  tecnicoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tecnicoSolicitadoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avaliacao?: Prisma.AvaliacaoUncheckedUpdateOneWithoutPedidoNestedInput
+}
+
 export type PedidoCreateWithoutAvaliacaoInput = {
   id?: string
   codigo: string
@@ -924,6 +1043,7 @@ export type PedidoCreateWithoutAvaliacaoInput = {
   user: Prisma.UserCreateNestedOneWithoutPedidosCriadosInput
   tecnico?: Prisma.UserCreateNestedOneWithoutPedidosAtendidosInput
   tecnicoSolicitado?: Prisma.UserCreateNestedOneWithoutPedidosDirecionadosRecebidosInput
+  localizacaoTecnico?: Prisma.LocalizacaoTecnicoCreateNestedOneWithoutPedidoInput
 }
 
 export type PedidoUncheckedCreateWithoutAvaliacaoInput = {
@@ -942,6 +1062,7 @@ export type PedidoUncheckedCreateWithoutAvaliacaoInput = {
   userId: string
   tecnicoId?: string | null
   tecnicoSolicitadoId?: string | null
+  localizacaoTecnico?: Prisma.LocalizacaoTecnicoUncheckedCreateNestedOneWithoutPedidoInput
 }
 
 export type PedidoCreateOrConnectWithoutAvaliacaoInput = {
@@ -976,6 +1097,7 @@ export type PedidoUpdateWithoutAvaliacaoInput = {
   user?: Prisma.UserUpdateOneRequiredWithoutPedidosCriadosNestedInput
   tecnico?: Prisma.UserUpdateOneWithoutPedidosAtendidosNestedInput
   tecnicoSolicitado?: Prisma.UserUpdateOneWithoutPedidosDirecionadosRecebidosNestedInput
+  localizacaoTecnico?: Prisma.LocalizacaoTecnicoUpdateOneWithoutPedidoNestedInput
 }
 
 export type PedidoUncheckedUpdateWithoutAvaliacaoInput = {
@@ -994,6 +1116,7 @@ export type PedidoUncheckedUpdateWithoutAvaliacaoInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   tecnicoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tecnicoSolicitadoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  localizacaoTecnico?: Prisma.LocalizacaoTecnicoUncheckedUpdateOneWithoutPedidoNestedInput
 }
 
 export type PedidoCreateManyUserInput = {
@@ -1063,6 +1186,7 @@ export type PedidoUpdateWithoutUserInput = {
   tecnico?: Prisma.UserUpdateOneWithoutPedidosAtendidosNestedInput
   tecnicoSolicitado?: Prisma.UserUpdateOneWithoutPedidosDirecionadosRecebidosNestedInput
   avaliacao?: Prisma.AvaliacaoUpdateOneWithoutPedidoNestedInput
+  localizacaoTecnico?: Prisma.LocalizacaoTecnicoUpdateOneWithoutPedidoNestedInput
 }
 
 export type PedidoUncheckedUpdateWithoutUserInput = {
@@ -1081,6 +1205,7 @@ export type PedidoUncheckedUpdateWithoutUserInput = {
   tecnicoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tecnicoSolicitadoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avaliacao?: Prisma.AvaliacaoUncheckedUpdateOneWithoutPedidoNestedInput
+  localizacaoTecnico?: Prisma.LocalizacaoTecnicoUncheckedUpdateOneWithoutPedidoNestedInput
 }
 
 export type PedidoUncheckedUpdateManyWithoutUserInput = {
@@ -1116,6 +1241,7 @@ export type PedidoUpdateWithoutTecnicoInput = {
   user?: Prisma.UserUpdateOneRequiredWithoutPedidosCriadosNestedInput
   tecnicoSolicitado?: Prisma.UserUpdateOneWithoutPedidosDirecionadosRecebidosNestedInput
   avaliacao?: Prisma.AvaliacaoUpdateOneWithoutPedidoNestedInput
+  localizacaoTecnico?: Prisma.LocalizacaoTecnicoUpdateOneWithoutPedidoNestedInput
 }
 
 export type PedidoUncheckedUpdateWithoutTecnicoInput = {
@@ -1134,6 +1260,7 @@ export type PedidoUncheckedUpdateWithoutTecnicoInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   tecnicoSolicitadoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avaliacao?: Prisma.AvaliacaoUncheckedUpdateOneWithoutPedidoNestedInput
+  localizacaoTecnico?: Prisma.LocalizacaoTecnicoUncheckedUpdateOneWithoutPedidoNestedInput
 }
 
 export type PedidoUncheckedUpdateManyWithoutTecnicoInput = {
@@ -1169,6 +1296,7 @@ export type PedidoUpdateWithoutTecnicoSolicitadoInput = {
   user?: Prisma.UserUpdateOneRequiredWithoutPedidosCriadosNestedInput
   tecnico?: Prisma.UserUpdateOneWithoutPedidosAtendidosNestedInput
   avaliacao?: Prisma.AvaliacaoUpdateOneWithoutPedidoNestedInput
+  localizacaoTecnico?: Prisma.LocalizacaoTecnicoUpdateOneWithoutPedidoNestedInput
 }
 
 export type PedidoUncheckedUpdateWithoutTecnicoSolicitadoInput = {
@@ -1187,6 +1315,7 @@ export type PedidoUncheckedUpdateWithoutTecnicoSolicitadoInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   tecnicoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avaliacao?: Prisma.AvaliacaoUncheckedUpdateOneWithoutPedidoNestedInput
+  localizacaoTecnico?: Prisma.LocalizacaoTecnicoUncheckedUpdateOneWithoutPedidoNestedInput
 }
 
 export type PedidoUncheckedUpdateManyWithoutTecnicoSolicitadoInput = {
@@ -1228,6 +1357,7 @@ export type PedidoSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   tecnico?: boolean | Prisma.Pedido$tecnicoArgs<ExtArgs>
   tecnicoSolicitado?: boolean | Prisma.Pedido$tecnicoSolicitadoArgs<ExtArgs>
   avaliacao?: boolean | Prisma.Pedido$avaliacaoArgs<ExtArgs>
+  localizacaoTecnico?: boolean | Prisma.Pedido$localizacaoTecnicoArgs<ExtArgs>
 }, ExtArgs["result"]["pedido"]>
 
 export type PedidoSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1296,6 +1426,7 @@ export type PedidoInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   tecnico?: boolean | Prisma.Pedido$tecnicoArgs<ExtArgs>
   tecnicoSolicitado?: boolean | Prisma.Pedido$tecnicoSolicitadoArgs<ExtArgs>
   avaliacao?: boolean | Prisma.Pedido$avaliacaoArgs<ExtArgs>
+  localizacaoTecnico?: boolean | Prisma.Pedido$localizacaoTecnicoArgs<ExtArgs>
 }
 export type PedidoIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -1315,6 +1446,7 @@ export type $PedidoPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     tecnico: Prisma.$UserPayload<ExtArgs> | null
     tecnicoSolicitado: Prisma.$UserPayload<ExtArgs> | null
     avaliacao: Prisma.$AvaliacaoPayload<ExtArgs> | null
+    localizacaoTecnico: Prisma.$LocalizacaoTecnicoPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1730,6 +1862,7 @@ export interface Prisma__PedidoClient<T, Null = never, ExtArgs extends runtime.T
   tecnico<T extends Prisma.Pedido$tecnicoArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Pedido$tecnicoArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   tecnicoSolicitado<T extends Prisma.Pedido$tecnicoSolicitadoArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Pedido$tecnicoSolicitadoArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   avaliacao<T extends Prisma.Pedido$avaliacaoArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Pedido$avaliacaoArgs<ExtArgs>>): Prisma.Prisma__AvaliacaoClient<runtime.Types.Result.GetResult<Prisma.$AvaliacaoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  localizacaoTecnico<T extends Prisma.Pedido$localizacaoTecnicoArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Pedido$localizacaoTecnicoArgs<ExtArgs>>): Prisma.Prisma__LocalizacaoTecnicoClient<runtime.Types.Result.GetResult<Prisma.$LocalizacaoTecnicoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2229,6 +2362,25 @@ export type Pedido$avaliacaoArgs<ExtArgs extends runtime.Types.Extensions.Intern
    */
   include?: Prisma.AvaliacaoInclude<ExtArgs> | null
   where?: Prisma.AvaliacaoWhereInput
+}
+
+/**
+ * Pedido.localizacaoTecnico
+ */
+export type Pedido$localizacaoTecnicoArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the LocalizacaoTecnico
+   */
+  select?: Prisma.LocalizacaoTecnicoSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the LocalizacaoTecnico
+   */
+  omit?: Prisma.LocalizacaoTecnicoOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.LocalizacaoTecnicoInclude<ExtArgs> | null
+  where?: Prisma.LocalizacaoTecnicoWhereInput
 }
 
 /**

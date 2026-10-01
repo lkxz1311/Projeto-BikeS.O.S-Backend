@@ -69,7 +69,7 @@ class PedidoController {
   }
 
   async criar(request: Request, response: Response) {
-    const { tipo, userId, telefone, problema, bike, localizacao, pagamento, tecnicoSolicitadoId } = request.body;
+    const { tipo, userId, telefone, problema, bike, localizacao, latitude, longitude, pagamento, tecnicoSolicitadoId } = request.body;
 
     if (!tipo || !userId || !telefone || !problema || !bike || !localizacao || !pagamento) {
       return response.status(400).json({ mensagem: "Preencha todos os campos obrigatórios" });
@@ -83,6 +83,8 @@ class PedidoController {
         problema,
         bike,
         localizacao,
+        latitude: latitude ? Number(latitude) : undefined,
+        longitude: longitude ? Number(longitude) : undefined,
         pagamento,
         tecnicoSolicitadoId,
       });

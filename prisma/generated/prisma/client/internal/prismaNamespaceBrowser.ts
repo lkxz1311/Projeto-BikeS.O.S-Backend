@@ -53,6 +53,7 @@ export const AnyNull = runtime.AnyNull
 export const ModelName = {
   User: 'User',
   Pedido: 'Pedido',
+  LocalizacaoTecnico: 'LocalizacaoTecnico',
   Avaliacao: 'Avaliacao'
 } as const
 
@@ -105,6 +106,17 @@ export const PedidoScalarFieldEnum = {
 } as const
 
 export type PedidoScalarFieldEnum = (typeof PedidoScalarFieldEnum)[keyof typeof PedidoScalarFieldEnum]
+
+
+export const LocalizacaoTecnicoScalarFieldEnum = {
+  id: 'id',
+  latitude: 'latitude',
+  longitude: 'longitude',
+  updatedAt: 'updatedAt',
+  pedidoId: 'pedidoId'
+} as const
+
+export type LocalizacaoTecnicoScalarFieldEnum = (typeof LocalizacaoTecnicoScalarFieldEnum)[keyof typeof LocalizacaoTecnicoScalarFieldEnum]
 
 
 export const AvaliacaoScalarFieldEnum = {
