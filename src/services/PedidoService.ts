@@ -1,4 +1,4 @@
-import { prisma } from "../prisma.js";
+import { prisma } from "./prisma.js";
 
 function gerarCodigoPedido() {
   return `BS${Math.floor(1000 + Math.random() * 9000)}`;
@@ -87,10 +87,17 @@ class PedidoService {
     telefone: string;
     problema: string;
     bike: string;
-    localizacao: string;
+    localizacao?: string;
+    latitude?: number;
+    longitude?: number;
     pagamento: string;
     tecnicoSolicitadoId?: string | null;
   }) {
+    let localizacaoFinal = dados.localizacao || "";
+    if (dados.latitude !== undefined && dados.longitude !== undefined) {
+      localizacaoFinal = `${dados.latitude},${dados.longitude}`;
+    }
+
     return await prisma.pedido.create({
       data: {
         codigo: gerarCodigoPedido(),
@@ -98,7 +105,7 @@ class PedidoService {
         telefone: dados.telefone,
         problema: dados.problema,
         bike: dados.bike,
-        localizacao: dados.localizacao,
+        localizacao: localizacaoFinal,
         pagamento: dados.pagamento,
         status: definirStatusInicial(dados.tipo),
         userId: dados.userId,

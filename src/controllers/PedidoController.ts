@@ -71,20 +71,25 @@ class PedidoController {
   async criar(request: Request, response: Response) {
     const { tipo, userId, telefone, problema, bike, localizacao, latitude, longitude, pagamento, tecnicoSolicitadoId } = request.body;
 
-    if (!tipo || !userId || !telefone || !problema || !bike || !localizacao || !pagamento) {
+    const temLocalizacao = Boolean(localizacao) || (latitude !== undefined && longitude !== undefined);
+
+    if (!tipo || !userId || !telefone || !problema || !bike || !temLocalizacao || !pagamento) {
       return response.status(400).json({ mensagem: "Preencha todos os campos obrigatórios" });
     }
 
     try {
+      const latNum = latitude !== undefined ? Number(latitude) : undefined;
+      const longNum = longitude !== undefined ? Number(longitude) : undefined;
+
       const pedido = await PedidoService.criar({
         tipo,
         userId,
         telefone,
         problema,
         bike,
-        localizacao,
-        latitude: latitude ? Number(latitude) : undefined,
-        longitude: longitude ? Number(longitude) : undefined,
+        localizacao: localizacao || (latNum && longNum ? `${latNum},${longNum}` : ""),
+        latitude: latNum,
+        longitude: longNum,
         pagamento,
         tecnicoSolicitadoId,
       });
