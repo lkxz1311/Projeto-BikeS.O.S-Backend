@@ -8,4 +8,7 @@ localizacaoRoutes.post('/pedidos/:pedidoId/localizacao', (req, res) => localizac
 
 localizacaoRoutes.get('/pedidos/:pedidoId/localizacao', (req, res) => localizacaoController.buscar(req, res));
 
+// Status do pedido + dados do técnico + última posição (usado pelo app do cliente)
+localizacaoRoutes.get('/pedidos/:pedidoId/rastreamento', (req, res) => localizacaoController.rastreamento(req, res));
+
 export { localizacaoRoutes };

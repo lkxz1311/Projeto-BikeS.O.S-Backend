@@ -1,9 +1,18 @@
 import { Request, Response } from 'express';
-import { LocalizacaoService } from '../services/localizacaoService.js';
+import { LocalizacaoError, LocalizacaoService } from '../services/localizacaoService.js';
 
 const localizacaoService = new LocalizacaoService();
 
+function responderErro(res: Response, error: any, mensagemPadrao: string) {
+  if (error instanceof LocalizacaoError) {
+    return res.status(error.statusCode).json({ mensagem: error.message });
+  }
+  console.error(mensagemPadrao, error);
+  return res.status(500).json({ mensagem: error?.message || mensagemPadrao });
+}
+
 export class LocalizacaoController {
+  // POST /pedidos/:pedidoId/localizacao  -> chamado pelo app do técnico
   async salvar(req: Request, res: Response) {
     try {
       const { pedidoId } = req.params;
@@ -22,10 +31,11 @@ export class LocalizacaoController {
 
       return res.status(200).json(localizacao);
     } catch (error: any) {
-      return res.status(500).json({ mensagem: error.message || 'Erro ao processar localização.' });
+      return responderErro(res, error, 'Erro ao processar localização.');
     }
   }
 
+  // GET /pedidos/:pedidoId/localizacao
   async buscar(req: Request, res: Response) {
     try {
       const { pedidoId } = req.params;
@@ -34,7 +44,20 @@ export class LocalizacaoController {
 
       return res.status(200).json(localizacao);
     } catch (error: any) {
-      return res.status(404).json({ mensagem: error.message });
+      return responderErro(res, error, 'Erro ao buscar localização.');
+    }
+  }
+
+  // GET /pedidos/:pedidoId/rastreamento  -> chamado pelo app do cliente (polling)
+  async rastreamento(req: Request, res: Response) {
+    try {
+      const { pedidoId } = req.params;
+
+      const dados = await localizacaoService.buscarRastreamento(pedidoId);
+
+      return res.status(200).json(dados);
+    } catch (error: any) {
+      return responderErro(res, error, 'Erro ao buscar rastreamento.');
     }
   }
 }

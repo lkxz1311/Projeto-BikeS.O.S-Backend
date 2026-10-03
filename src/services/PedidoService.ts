@@ -10,12 +10,20 @@ function definirStatusInicial(tipo: string): string {
   return "Aguardando técnico aceitar";
 }
 
+// Status que encerram o atendimento: a localização do técnico deixa de ser compartilhada
+const STATUS_ENCERRADOS = ["Finalizado", "Rejeitado", "Cancelado"];
+
+async function limparLocalizacaoTecnico(pedidoId: string) {
+  await prisma.localizacaoTecnico.deleteMany({ where: { pedidoId } });
+}
+
 class PedidoService {
   async listarPorUsuario(userId: string) {
     return await prisma.pedido.findMany({
       where: { userId },
       include: {
         avaliacao: true,
+        tecnico: { select: { id: true, nome: true, telefone: true } },
       },
       orderBy: { createdAt: "desc" },
     });
@@ -76,6 +84,7 @@ class PedidoService {
       where: { id },
       include: {
         user: { select: { nome: true, telefone: true } },
+        tecnico: { select: { id: true, nome: true, telefone: true } },
         avaliacao: true,
       },
     });
@@ -120,10 +129,16 @@ class PedidoService {
       dataAtualizacao.tecnicoId = tecnicoId;
     }
 
-    return await prisma.pedido.update({
+    const pedido = await prisma.pedido.update({
       where: { id },
       data: dataAtualizacao,
     });
+
+    if (STATUS_ENCERRADOS.includes(status)) {
+      await limparLocalizacaoTecnico(id);
+    }
+
+    return pedido;
   }
 
   async listarHistorico() {
@@ -160,6 +175,8 @@ class PedidoService {
       where: { id: dados.pedidoId },
       data: { status: "Finalizado" },
     });
+
+    await limparLocalizacaoTecnico(dados.pedidoId);
 
     return avaliacao;
   }
