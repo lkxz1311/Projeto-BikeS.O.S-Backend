@@ -24,6 +24,7 @@ class PedidoService {
       include: {
         avaliacao: true,
         tecnico: { select: { id: true, nome: true, telefone: true } },
+        localizacaoTecnico: true,
       },
       orderBy: { createdAt: "desc" },
     });
@@ -39,6 +40,7 @@ class PedidoService {
       },
       include: {
         user: { select: { nome: true, telefone: true } },
+        localizacaoTecnico: true,
       },
       orderBy: { createdAt: "desc" },
     });
@@ -60,6 +62,7 @@ class PedidoService {
       },
       include: {
         user: { select: { nome: true, telefone: true } },
+        localizacaoTecnico: true,
       },
       orderBy: { createdAt: "desc" },
     });
@@ -74,6 +77,7 @@ class PedidoService {
       },
       include: {
         user: { select: { nome: true, telefone: true } },
+        localizacaoTecnico: true,
       },
       orderBy: { createdAt: "desc" },
     });
@@ -86,6 +90,7 @@ class PedidoService {
         user: { select: { nome: true, telefone: true } },
         tecnico: { select: { id: true, nome: true, telefone: true } },
         avaliacao: true,
+        localizacaoTecnico: true,
       },
     });
   }
@@ -96,17 +101,15 @@ class PedidoService {
     telefone: string;
     problema: string;
     bike: string;
-    localizacao?: string;
+    localizacao: string;
+    rua?: string;
+    cidade?: string;
+    estado?: string;
     latitude?: number;
     longitude?: number;
     pagamento: string;
     tecnicoSolicitadoId?: string | null;
   }) {
-    let localizacaoFinal = dados.localizacao || "";
-    if (dados.latitude !== undefined && dados.longitude !== undefined) {
-      localizacaoFinal = `${dados.latitude},${dados.longitude}`;
-    }
-
     return await prisma.pedido.create({
       data: {
         codigo: gerarCodigoPedido(),
@@ -114,7 +117,12 @@ class PedidoService {
         telefone: dados.telefone,
         problema: dados.problema,
         bike: dados.bike,
-        localizacao: localizacaoFinal,
+        localizacao: dados.localizacao,
+        rua: dados.rua ?? null,
+        cidade: dados.cidade ?? null,
+        estado: dados.estado ?? null,
+        latitude: dados.latitude ?? null,
+        longitude: dados.longitude ?? null,
         pagamento: dados.pagamento,
         status: definirStatusInicial(dados.tipo),
         userId: dados.userId,
@@ -139,6 +147,21 @@ class PedidoService {
     }
 
     return pedido;
+  }
+
+  async atualizarLocalizacaoTecnico(pedidoId: string, latitude: number, longitude: number) {
+    return await prisma.localizacaoTecnico.upsert({
+      where: { pedidoId },
+      update: {
+        latitude,
+        longitude,
+      },
+      create: {
+        pedidoId,
+        latitude,
+        longitude,
+      },
+    });
   }
 
   async listarHistorico() {

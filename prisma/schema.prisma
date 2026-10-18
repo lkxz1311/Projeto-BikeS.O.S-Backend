@@ -33,6 +33,14 @@ model Pedido {
   problema    String
   bike        String
   localizacao String
+  
+  // --- Contrato de Endereço Restrito do Cliente ---
+  rua         String?
+  cidade      String?
+  estado      String?
+  latitude    Float?
+  longitude   Float?
+
   pagamento   String
   status      String   @default("Aguardando técnico aceitar")
   avaliado    Boolean  @default(false)
@@ -46,7 +54,7 @@ model Pedido {
   tecnico     User?    @relation("PedidoTecnico", fields: [tecnicoId], references: [id])
 
   tecnicoSolicitadoId String?
-  tecnicoSolicitado   User?   @relation("PedidoTecnicoSolicitado", fields: [tecnicoSolicitadoId], references: [id])
+  tecnicoSolicitado   User?    @relation("PedidoTecnicoSolicitado", fields: [tecnicoSolicitadoId], references: [id])
 
   avaliacao          Avaliacao?
   localizacaoTecnico LocalizacaoTecnico?

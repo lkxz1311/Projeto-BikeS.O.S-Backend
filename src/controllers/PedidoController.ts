@@ -69,25 +69,41 @@ class PedidoController {
   }
 
   async criar(request: Request, response: Response) {
-    const { tipo, userId, telefone, problema, bike, localizacao, latitude, longitude, pagamento, tecnicoSolicitadoId } = request.body;
+    const {
+      tipo,
+      userId,
+      telefone,
+      problema,
+      bike,
+      localizacao,
+      enderecoCompleto,
+      coordenadas,
+      latitude,
+      longitude,
+      pagamento,
+      tecnicoSolicitadoId,
+    } = request.body;
 
-    const temLocalizacao = Boolean(localizacao) || (latitude !== undefined && longitude !== undefined);
+    const latNum = coordenadas?.latitude ?? (latitude !== undefined ? Number(latitude) : undefined);
+    const longNum = coordenadas?.longitude ?? (longitude !== undefined ? Number(longitude) : undefined);
 
-    if (!tipo || !userId || !telefone || !problema || !bike || !temLocalizacao || !pagamento) {
+    const ruaValida = enderecoCompleto?.rua || localizacao;
+
+    if (!tipo || !userId || !telefone || !problema || !bike || !ruaValida || !pagamento) {
       return response.status(400).json({ mensagem: "Preencha todos os campos obrigatórios" });
     }
 
     try {
-      const latNum = latitude !== undefined ? Number(latitude) : undefined;
-      const longNum = longitude !== undefined ? Number(longitude) : undefined;
-
       const pedido = await PedidoService.criar({
         tipo,
         userId,
         telefone,
         problema,
         bike,
-        localizacao: localizacao || (latNum && longNum ? `${latNum},${longNum}` : ""),
+        localizacao: ruaValida,
+        rua: enderecoCompleto?.rua || ruaValida,
+        cidade: enderecoCompleto?.cidade,
+        estado: enderecoCompleto?.estado,
         latitude: latNum,
         longitude: longNum,
         pagamento,
@@ -113,6 +129,26 @@ class PedidoController {
       return response.json(pedido);
     } catch (error) {
       return response.status(500).json({ mensagem: "Erro ao atualizar status" });
+    }
+  }
+
+  async atualizarLocalizacaoTecnico(request: Request, response: Response) {
+    const { id } = request.params;
+    const { latitude, longitude } = request.body;
+
+    if (latitude === undefined || longitude === undefined) {
+      return response.status(400).json({ mensagem: "Latitude e longitude são obrigatórias" });
+    }
+
+    try {
+      const localizacao = await PedidoService.atualizarLocalizacaoTecnico(
+        id,
+        Number(latitude),
+        Number(longitude)
+      );
+      return response.json(localizacao);
+    } catch (error) {
+      return response.status(500).json({ mensagem: "Erro ao atualizar localização do técnico" });
     }
   }
 
